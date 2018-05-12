@@ -38,6 +38,7 @@ Sub AttendanceData_save_v2() 'String version 'Uncompressed
     End If
 End Sub
 Sub UpdateAttendanceList_v1(Optional ByVal save As Boolean = True)
+    Debug_msg ("Attendance: UpdateAttendanceList_v1 called")
     If Application.EnableEvents <> True Then
         Dim row As Integer
         row = 3

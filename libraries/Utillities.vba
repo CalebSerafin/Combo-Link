@@ -21,6 +21,9 @@ Function Debug_msg_v1(ByVal msg As String, Optional ByVal code As String = "null
             MsgBox (msg)
         End If
 End Function
+Function IsInArray_v1(stringToBeFound As String, arr As Variant) As Boolean
+  IsInArray_v1 = (UBound(Filter(arr, stringToBeFound)) > -1)
+End Function
 Function GetMonth_v1(ByVal number As Integer, Optional ByVal longName As Boolean = False) As String
     If IsNumeric(number) Then
         number = Int(number)

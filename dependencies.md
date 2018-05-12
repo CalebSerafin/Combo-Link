@@ -1,5 +1,5 @@
 # VBA Project: Combo-Link
-This repo (Combo-Link) was automatically created on 11/05/2018 23:05:25 by VBAGit.For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation") or [contact me on G+](https://plus.google.com/+BruceMcpherson "Bruce McPherson - GDE")  
+This repo (Combo-Link) was automatically created on 12/05/2018 23:42:17 by VBAGit.For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation") or [contact me on G+](https://plus.google.com/+BruceMcpherson "Bruce McPherson - GDE")  
 ## Details for VBA project Combo-Link
 Where possibile directly referenced or sub referenced library sources have been copied to this repository  
 ### Modules of Combo-Link included in this repo

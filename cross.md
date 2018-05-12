@@ -1,5 +1,5 @@
 # VBA Project: Combo-Link
-This cross reference list for repo (Combo-Link) was automatically created on 11/05/2018 23:05:25 by VBAGit.For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation")
+This cross reference list for repo (Combo-Link) was automatically created on 12/05/2018 23:42:17 by VBAGit.For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation")
 You can see [library and dependency information here](dependencies.md)
 
 ###Below is a cross reference showing which modules and procedures reference which others
@@ -13,6 +13,7 @@ Details|FindMember_v1|Bridge|FindMember
 Utillities|addCellData_v1|Bridge|addCellData
 Utillities|Debug_msg_v1|Bridge|Debug_msg
 Utillities|GetMonth_v1|Bridge|GetMonth
+Utillities|IsInArray_v1|Bridge|IsInArray
 Utillities|References_RemoveMissing_v1|Bridge|References_RemoveMissing
 Utillities|ScanCommonError_v1|Bridge|ScanCommonError
 Utillities|StringMult_v1|Bridge|StringMult
