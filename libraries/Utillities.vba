@@ -1,3 +1,4 @@
+Option Explicit
 Function Debug_msg_v1(ByVal msg As String, Optional ByVal code As String = "null", Optional ByVal request As String = "null") As Boolean
         If Worksheets("COMPUTING DON'T TOUCH").Cells(20, 2).Value = "Window" Then
             Debug_msg_v1 = True
@@ -51,7 +52,13 @@ Function StringMult_v1(ByVal Word As String, ByVal Multiply As Integer) As Strin
     End If
 End Function
 Function addCellData_v1(ByVal mode As String, ByVal sheet As String, ByVal min As Integer, ByVal max As Integer, ByVal rawData As String, ByVal topLeft As Integer, ByVal forceLast As Boolean)
-    
+    Dim lastCalcValue As Long
+    With Application
+        lastCalcValue = .Calculation
+        .ScreenUpdating = False
+        .Calculation = xlCalculationManual
+        .EnableEvents = False
+    End With
     addCellData_v1 = False
     
     If mode = "row" Or mode = "column" Then
@@ -75,7 +82,7 @@ Function addCellData_v1(ByVal mode As String, ByVal sheet As String, ByVal min A
         For index1D = min To max
             isFree = True
             For atColumn = topLeft To howLong + topLeft
-                If Not isEmpty(Worksheets(sheet).Cells(index1D, atColumn).Value) Then
+                If Not IsEmpty(Worksheets(sheet).Cells(index1D, atColumn).Value) Then
                     isFree = False
                     Exit For
                 End If
@@ -90,16 +97,23 @@ Function addCellData_v1(ByVal mode As String, ByVal sheet As String, ByVal min A
         Next index1D
     End If
     
-    
+    With Application
+        .ScreenUpdating = True
+        .Calculation = lastCalcValue
+        .EnableEvents = True
+    End With
 End Function
 Sub References_RemoveMissing_v1() 'Removes missing References from VBE
+    If Not VBAIsTrusted() Then
+        Call CheckTrustAccess
+    End If
+    
     Dim theRef As Variant, i As Long
-    On Error Resume Next
     
     For i = ThisWorkbook.VBProject.References.Count To 1 Step -1
         Set theRef = ThisWorkbook.VBProject.References.Item(i)
         If theRef.isBroken = True Then
-            ThisWkbook.VBProject.References.Remove (theRef)
+            ThisWorkbook.VBProject.References.Remove (theRef)
         End If
     Next i
     
@@ -137,7 +151,7 @@ Sub ScanCommonError_v1() ' Requires v2 Load and Save functions
         For index1D = 2 To maxMembers + 1
             isFree = True
             For atColumn = 1 To 7
-                If Not isEmpty(Worksheets("Details").Cells(index1D, atColumn).Value) Then
+                If Not IsEmpty(Worksheets("Details").Cells(index1D, atColumn).Value) Then
                     isFree = False
                     Exit For
                 End If
