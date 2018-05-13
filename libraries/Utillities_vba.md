@@ -2,7 +2,7 @@
 ## VBA Module: **[Utillities](/libraries/Utillities.vba "source is here")**
 ### Type: StdModule  
 
-This procedure list for repo (Combo-Link) was automatically created on 13/05/2018 22:54:29 by VBAGit.
+This procedure list for repo (Combo-Link) was automatically created on 13/05/2018 23:05:54 by VBAGit.
 For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation")
 
 Below is a section for each procedure in Utillities
