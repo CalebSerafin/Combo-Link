@@ -15,8 +15,8 @@ Attendance|StdModule|[Attendance.vba](libraries/Attendance.vba "library source")
 Details|StdModule|[Details.vba](libraries/Details.vba "library source")|[Details_vba.md](libraries/Details_vba.md "library docs")  
 TrustAccess|StdModule|[TrustAccess.vba](libraries/TrustAccess.vba "library source")|[TrustAccess_vba.md](libraries/TrustAccess_vba.md "library docs")  
   
-###Excel references  
-####These references were detected in the workbook (Combo-Link.xlsm) this repo was created from. You may not need them all  
+### Excel references  
+#### These references were detected in the workbook (Combo-Link.xlsm) this repo was created from. You may not need them all  
 *name*|*guid*|*major*|*minor*|*description*  
 ---|---|---|---|---  
 VBA|{000204EF-0000-0000-C000-000000000046}|4|2|Visual Basic For Applications  
