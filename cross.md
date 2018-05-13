@@ -1,5 +1,5 @@
 # VBA Project: Combo-Link
-This cross reference list for repo (Combo-Link) was automatically created on 13/05/2018 22:54:30 by VBAGit.For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation")
+This cross reference list for repo (Combo-Link) was automatically created on 12/05/2018 23:42:17 by VBAGit.For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation")
 You can see [library and dependency information here](dependencies.md)
 
 ###Below is a cross reference showing which modules and procedures reference which others
@@ -10,7 +10,6 @@ Attendance|AttendanceData_save_v2|Bridge|AttendanceData_save
 Attendance|PositionAttendanceColomnButtons_v1|Bridge|PositionAttendanceColomnButtons
 Attendance|UpdateAttendanceList_v1|Bridge|UpdateAttendanceList
 Details|FindMember_v1|Bridge|FindMember
-TrustAccess|VBAIsTrusted|Utillities|References_RemoveMissing_v1
 Utillities|addCellData_v1|Bridge|addCellData
 Utillities|Debug_msg_v1|Bridge|Debug_msg
 Utillities|GetMonth_v1|Bridge|GetMonth

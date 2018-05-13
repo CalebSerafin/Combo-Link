@@ -1,4 +1,3 @@
-Option Explicit
 Function FindMember_v1(ByVal firstName As String, ByVal lastName As String, Optional ByVal matchCase As Boolean = True) 'returns row of member. returns 0 if nor found
     FindMember_v1 = 0
     

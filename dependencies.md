@@ -1,5 +1,5 @@
 # VBA Project: Combo-Link
-This repo (Combo-Link) was automatically created on 13/05/2018 22:54:30 by VBAGit.For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation") or [contact me on G+](https://plus.google.com/+BruceMcpherson "Bruce McPherson - GDE")  
+This repo (Combo-Link) was automatically created on 12/05/2018 23:42:17 by VBAGit.For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation") or [contact me on G+](https://plus.google.com/+BruceMcpherson "Bruce McPherson - GDE")  
 ## Details for VBA project Combo-Link
 Where possibile directly referenced or sub referenced library sources have been copied to this repository  
 ### Modules of Combo-Link included in this repo
@@ -13,7 +13,6 @@ Bridge|StdModule|[Bridge.vba](scripts/Bridge.vba "script source")|[Bridge_vba.md
 Utillities|StdModule|[Utillities.vba](libraries/Utillities.vba "library source")|[Utillities_vba.md](libraries/Utillities_vba.md "library docs")  
 Attendance|StdModule|[Attendance.vba](libraries/Attendance.vba "library source")|[Attendance_vba.md](libraries/Attendance_vba.md "library docs")  
 Details|StdModule|[Details.vba](libraries/Details.vba "library source")|[Details_vba.md](libraries/Details_vba.md "library docs")  
-TrustAccess|StdModule|[TrustAccess.vba](libraries/TrustAccess.vba "library source")|[TrustAccess_vba.md](libraries/TrustAccess_vba.md "library docs")  
   
 ###Excel references  
 ####These references were detected in the workbook (Combo-Link.xlsm) this repo was created from. You may not need them all  

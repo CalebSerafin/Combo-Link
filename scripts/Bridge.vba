@@ -3,7 +3,6 @@
 'Used to switch between different versions of functions while
 'not refactoring entire projects. Providing 99% Up-Time.
 '===============================================================
-Option Explicit
 '\\\Variables///'
 Public dataTableOld As String
 Public AttendanceSaving As Boolean
