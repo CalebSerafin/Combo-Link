@@ -3,72 +3,101 @@
 '
 '
 '===============================================================
+Option Explicit
 Sub AttendanceData_save_v2() 'String version 'Uncompressed
     Debug_msg ("Module1: AttendanceData_save_v2(): Application.EnableEvents found at " & Application.EnableEvents)
-    If Application.EnableEvents <> True Then
-        Debug_msg ("Module1: AttendanceData_save_v2() started")
-        Dim att_row As Integer
-        att_row = 3
-        Dim att_column As Integer
-        att_column = 3
+    Dim lastCalcValue As Long
+    With Application
+        lastCalcValue = .Calculation
+        .ScreenUpdating = False
+        .Calculation = xlCalculationManual
+        .EnableEvents = False
+    End With
+    
+    Debug_msg ("Module1: AttendanceData_save_v2() started")
+    Dim att_row As Integer
+    att_row = 3
+    Dim att_column As Integer
+    att_column = 3
+    
+    Dim det_row As Integer
+    det_row = 2
+    Dim det_column As Integer
+    det_column = 8
+    
+    Dim practiceNo As Integer
+    practiceNo = Worksheets("Attendance").Cells(1, 2).Value
+    Dim serial As String
+    serial = ""
+    
+    For att_row = 3 To maxMembers + 2
         
-        Dim det_row As Integer
-        det_row = 2
-        Dim det_column As Integer
-        det_column = 8
-        
-        Dim practiceNo As Integer
-        practiceNo = Worksheets("Attendance").Cells(1, 2).Value
-        Dim serial As String
         serial = ""
+        For att_column = 3 To practiceNo + 2
+            If IsEmpty(Worksheets("Attendance").Cells(att_row, att_column).Value) Then serial = serial & 0
+            If Worksheets("Attendance").Cells(att_row, att_column).Value = "Y" Then serial = serial & 1
+            If Worksheets("Attendance").Cells(att_row, att_column).Value = "N" Then serial = serial & 2
+            If Worksheets("Attendance").Cells(att_row, att_column).Value = "?" Then serial = serial & 3
+        Next att_column
         
-        For att_row = 3 To maxMembers + 2
-            
-            serial = ""
-            For att_column = 3 To practiceNo + 2
-                If isEmpty(Worksheets("Attendance").Cells(att_row, att_column).Value) Then serial = serial & 0
-                If Worksheets("Attendance").Cells(att_row, att_column).Value = "Y" Then serial = serial & 1
-                If Worksheets("Attendance").Cells(att_row, att_column).Value = "N" Then serial = serial & 2
-                If Worksheets("Attendance").Cells(att_row, att_column).Value = "?" Then serial = serial & 3
-            Next att_column
-            
-            Worksheets("Details").Cells(det_row, det_column).Value = "v2_" & serial
-            det_row = det_row + 1
-        Next att_row
-    End If
+        Worksheets("Details").Cells(det_row, det_column).Value = "v2_" & serial
+        det_row = det_row + 1
+    Next att_row
+    
+    With Application
+        .ScreenUpdating = True
+        .Calculation = lastCalcValue
+        .EnableEvents = True
+    End With
 End Sub
 Sub UpdateAttendanceList_v1(Optional ByVal save As Boolean = True)
     Debug_msg ("Attendance: UpdateAttendanceList_v1 called")
-    If Application.EnableEvents <> True Then
-        Dim row As Integer
-        row = 3
-        Dim column As Integer
-        column = 2
-        Dim practiceNo As Integer
-        practiceNo = Worksheets("Attendance").Cells(1, 2).Value
+    Dim lastCalcValue As Long
+    With Application
+        lastCalcValue = .Calculation
+        .ScreenUpdating = False
+        .Calculation = xlCalculationManual
+        .EnableEvents = False
+    End With
         
-        For row = 3 To maxMembers + 2
+    Dim row As Integer
+    row = 3
+    Dim column As Integer
+    column = 2
+    Dim practiceNo As Integer
+    practiceNo = Worksheets("Attendance").Cells(1, 2).Value
+    
+    For row = 3 To maxMembers + 2
         Dim sum As Integer
         sum = 0
-            For column = 3 To practiceNo + 2
-                If Worksheets("Attendance").Cells(row, column).Value = "Y" Then sum = sum + 1
-            Next column
-            Worksheets("Attendance").Cells(row, 2).Value = sum / practiceNo
-            Worksheets("Details").Cells(row - 1, 9).Value = sum / practiceNo
-        Next row
-        
-        If save = True Then
-            Debug_msg ("Module1: UpdateAttendanceList_v1: proceeding with save function")
-            Call AttendanceData_save
-        End If
-        
+        For column = 3 To practiceNo + 2
+            If Worksheets("Attendance").Cells(row, column).Value = "Y" Then sum = sum + 1
+        Next column
+        Worksheets("Attendance").Cells(row, 2).Value = sum / practiceNo
+        Worksheets("Details").Cells(row - 1, 9).Value = sum / practiceNo
+    Next row
+    
+    If save = True Then
+        Debug_msg ("Module1: UpdateAttendanceList_v1: proceeding with save function")
+        Call AttendanceData_save
     End If
+    
+    With Application
+        .ScreenUpdating = True
+        .Calculation = lastCalcValue
+        .EnableEvents = True
+    End With
 End Sub
 Sub AttendanceData_load_v2() 'String version 'Uncompressed
-    If AttendanceSaving <> True And Application.EnableEvents <> True Then
+    If AttendanceSaving <> True Then
         Application.StatusBar = "Please Wait ... Syncing Attendance List: "
-        Application.ScreenUpdating = False
-        
+        Dim lastCalcValue As Long
+        With Application
+            lastCalcValue = .Calculation
+            .ScreenUpdating = False
+            .Calculation = xlCalculationManual
+            .EnableEvents = False
+        End With
         Dim practiceNo As Integer
         practiceNo = Worksheets("Attendance").Cells(1, 2).Value
         Dim serial As String
@@ -108,7 +137,11 @@ Sub AttendanceData_load_v2() 'String version 'Uncompressed
     
         
         Application.StatusBar = False
-        Application.ScreenUpdating = True
+        With Application
+            .ScreenUpdating = True
+            .Calculation = lastCalcValue
+            .EnableEvents = True
+        End With
     
         Call UpdateAttendanceList(False)
     End If
