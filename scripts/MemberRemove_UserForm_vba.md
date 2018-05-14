@@ -1,63 +1,61 @@
 # VBA Project: **Combo-Link**
-## VBA Module: **[Attendance](/scripts/Attendance.vba "source is here")**
-### Type: StdModule  
+## VBA Module: **[MemberRemove_UserForm](/scripts/MemberRemove_UserForm.vba "source is here")**
+### Type: MSForm  
 
 This procedure list for repo (Combo-Link) was automatically created on 14/05/2018 16:01:08 by VBAGit.
 For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation")
 
-Below is a section for each procedure in Attendance
+Below is a section for each procedure in MemberRemove_UserForm
 
 ---
-VBA Procedure: **AttendanceData_save_v2**  
+VBA Procedure: **UserForm_Initialize**  
 Type: **Sub**  
 Returns: **void**  
 Return description: ****  
-Scope: **Public**  
+Scope: **Private**  
 Description: ****  
 
-*Sub AttendanceData_save_v2()*  
+*Private Sub UserForm_Initialize()*  
 
 **no arguments required for this procedure**
 
 
 ---
-VBA Procedure: **UpdateAttendanceList_v1**  
+VBA Procedure: **RemoveMemberRow**  
 Type: **Sub**  
 Returns: **void**  
 Return description: ****  
 Scope: **Public**  
 Description: ****  
 
-*Sub UpdateAttendanceList_v1(Optional ByVal save As Boolean = True)*  
+*Sub RemoveMemberRow(ByVal row As Integer)*  
 
 *name*|*type*|*optional*|*default*|*description*
 ---|---|---|---|---
-ByVal|Variant|True||
+ByVal|Integer|False||
 
 
 ---
-VBA Procedure: **AttendanceData_load_v2**  
+VBA Procedure: **Cancel_btn_Click**  
 Type: **Sub**  
 Returns: **void**  
 Return description: ****  
-Scope: **Public**  
+Scope: **Private**  
 Description: ****  
 
-*Sub AttendanceData_load_v2()*  
+*Private Sub Cancel_btn_Click()*  
 
 **no arguments required for this procedure**
 
 
 ---
-VBA Procedure: **PositionAttendanceColomnButtons_v1**  
+VBA Procedure: **Submit_btn_Click**  
 Type: **Sub**  
 Returns: **void**  
 Return description: ****  
-Scope: **Public**  
+Scope: **Private**  
 Description: ****  
 
-*Sub PositionAttendanceColomnButtons_v1(Optional ByVal colomn As Integer = 0)*  
+*Private Sub Submit_btn_Click()*  
 
-*name*|*type*|*optional*|*default*|*description*
----|---|---|---|---
-ByVal|Variant|True||
+**no arguments required for this procedure**

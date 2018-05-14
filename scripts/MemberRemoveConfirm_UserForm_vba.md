@@ -1,33 +1,33 @@
 # VBA Project: **Combo-Link**
-## VBA Module: **[FunctionGraveyard](/scripts/FunctionGraveyard.vba "source is here")**
-### Type: StdModule  
+## VBA Module: **[MemberRemoveConfirm_UserForm](/scripts/MemberRemoveConfirm_UserForm.vba "source is here")**
+### Type: MSForm  
 
 This procedure list for repo (Combo-Link) was automatically created on 14/05/2018 16:01:08 by VBAGit.
 For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation")
 
-Below is a section for each procedure in FunctionGraveyard
+Below is a section for each procedure in MemberRemoveConfirm_UserForm
 
 ---
-VBA Procedure: **AttendanceData_save_v1**  
+VBA Procedure: **Abort_btn_Click**  
 Type: **Sub**  
 Returns: **void**  
 Return description: ****  
-Scope: **Public**  
+Scope: **Private**  
 Description: ****  
 
-*Sub AttendanceData_save_v1()*  
+*Private Sub Abort_btn_Click()*  
 
 **no arguments required for this procedure**
 
 
 ---
-VBA Procedure: **AttendanceData_load_v1**  
+VBA Procedure: **Cancel_btn_Click**  
 Type: **Sub**  
 Returns: **void**  
 Return description: ****  
-Scope: **Public**  
+Scope: **Private**  
 Description: ****  
 
-*Sub AttendanceData_load_v1()*  
+*Private Sub Cancel_btn_Click()*  
 
 **no arguments required for this procedure**

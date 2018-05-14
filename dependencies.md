@@ -1,10 +1,15 @@
 # VBA Project: Combo-Link
-This repo (Combo-Link) was automatically created on 14/05/2018 15:52:49 by VBAGit.For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation") or [contact me on G+](https://plus.google.com/+BruceMcpherson "Bruce McPherson - GDE")  
+This repo (Combo-Link) was automatically created on 14/05/2018 16:01:08 by VBAGit.For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation") or [contact me on G+](https://plus.google.com/+BruceMcpherson "Bruce McPherson - GDE")  
 ## Details for VBA project Combo-Link
 Where possibile directly referenced or sub referenced library sources have been copied to this repository  
 ### Modules of Combo-Link included in this repo
 *name*|*type*|*source*|*docs*  
 ---|---|---|---  
+addDate_UserForm|MSForm|[addDate_UserForm.vba](scripts/addDate_UserForm.vba "script source")|[addDate_UserForm_vba.md](scripts/addDate_UserForm_vba.md "script docs")  
+MemberAdd_UserForm|MSForm|[MemberAdd_UserForm.vba](scripts/MemberAdd_UserForm.vba "script source")|[MemberAdd_UserForm_vba.md](scripts/MemberAdd_UserForm_vba.md "script docs")  
+MemberRemove_UserForm|MSForm|[MemberRemove_UserForm.vba](scripts/MemberRemove_UserForm.vba "script source")|[MemberRemove_UserForm_vba.md](scripts/MemberRemove_UserForm_vba.md "script docs")  
+MemberRemoveConfirm_UserForm|MSForm|[MemberRemoveConfirm_UserForm.vba](scripts/MemberRemoveConfirm_UserForm.vba "script source")|[MemberRemoveConfirm_UserForm_vba.md](scripts/MemberRemoveConfirm_UserForm_vba.md "script docs")  
+removeDate_UserForm|MSForm|[removeDate_UserForm.vba](scripts/removeDate_UserForm.vba "script source")|[removeDate_UserForm_vba.md](scripts/removeDate_UserForm_vba.md "script docs")  
 Attendance|StdModule|[Attendance.vba](scripts/Attendance.vba "script source")|[Attendance_vba.md](scripts/Attendance_vba.md "script docs")  
 Bridge|StdModule|[Bridge.vba](scripts/Bridge.vba "script source")|[Bridge_vba.md](scripts/Bridge_vba.md "script docs")  
 Details|StdModule|[Details.vba](scripts/Details.vba "script source")|[Details_vba.md](scripts/Details_vba.md "script docs")  
@@ -21,8 +26,8 @@ cTableSlots|ClassModule|[cTableSlots.cls](scripts/cTableSlots.cls "script source
 *name*|*type*|*source*|*docs*  
 ---|---|---|---  
   
-### Excel references  
-#### These references were detected in the workbook (Combo-Link.xlsm) this repo was created from. You may not need them all  
+###Excel references  
+####These references were detected in the workbook (Combo-Link.xlsm) this repo was created from. You may not need them all  
 *name*|*guid*|*major*|*minor*|*description*  
 ---|---|---|---|---  
 VBA|{000204EF-0000-0000-C000-000000000046}|4|2|Visual Basic For Applications  
