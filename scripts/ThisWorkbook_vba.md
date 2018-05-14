@@ -1,23 +1,20 @@
 # VBA Project: **Combo-Link**
-## VBA Module: **[cStore](/scripts/cStore.cls "source is here")**
-### Type: ClassModule  
+## VBA Module: **[ThisWorkbook](/scripts/ThisWorkbook.vba "source is here")**
+### Type: Document  
 
 This procedure list for repo (Combo-Link) was automatically created on 14/05/2018 16:03:29 by VBAGit.
 For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation")
 
-Below is a section for each procedure in cStore
+Below is a section for each procedure in ThisWorkbook
 
 ---
-VBA Procedure: **Class_Initialize**  
+VBA Procedure: **Workbook_Open**  
 Type: **Sub**  
 Returns: **void**  
 Return description: ****  
 Scope: **Private**  
 Description: ****  
 
-*Private Sub Class_Initialize(ByVal ParentType As String, ByVal RootName As String)*  
+*Private Sub Workbook_Open()*  
 
-*name*|*type*|*optional*|*default*|*description*
----|---|---|---|---
-ByVal|String|False||
-ByVal|String|False||
+**no arguments required for this procedure**
