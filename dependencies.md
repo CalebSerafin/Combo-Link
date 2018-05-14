@@ -1,19 +1,25 @@
 # VBA Project: Combo-Link
-This repo (Combo-Link) was automatically created on 13/05/2018 23:05:54 by VBAGit.For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation") or [contact me on G+](https://plus.google.com/+BruceMcpherson "Bruce McPherson - GDE")  
+This repo (Combo-Link) was automatically created on 14/05/2018 15:52:49 by VBAGit.For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation") or [contact me on G+](https://plus.google.com/+BruceMcpherson "Bruce McPherson - GDE")  
 ## Details for VBA project Combo-Link
 Where possibile directly referenced or sub referenced library sources have been copied to this repository  
 ### Modules of Combo-Link included in this repo
 *name*|*type*|*source*|*docs*  
 ---|---|---|---  
+Attendance|StdModule|[Attendance.vba](scripts/Attendance.vba "script source")|[Attendance_vba.md](scripts/Attendance_vba.md "script docs")  
 Bridge|StdModule|[Bridge.vba](scripts/Bridge.vba "script source")|[Bridge_vba.md](scripts/Bridge_vba.md "script docs")  
+Details|StdModule|[Details.vba](scripts/Details.vba "script source")|[Details_vba.md](scripts/Details_vba.md "script docs")  
+FunctionGraveyard|StdModule|[FunctionGraveyard.vba](scripts/FunctionGraveyard.vba "script source")|[FunctionGraveyard_vba.md](scripts/FunctionGraveyard_vba.md "script docs")  
+Scores|StdModule|[Scores.vba](scripts/Scores.vba "script source")|[Scores_vba.md](scripts/Scores_vba.md "script docs")  
+TrustAccess|StdModule|[TrustAccess.vba](scripts/TrustAccess.vba "script source")|[TrustAccess_vba.md](scripts/TrustAccess_vba.md "script docs")  
+Utillities|StdModule|[Utillities.vba](scripts/Utillities.vba "script source")|[Utillities_vba.md](scripts/Utillities_vba.md "script docs")  
+cAttributes|ClassModule|[cAttributes.cls](scripts/cAttributes.cls "script source")|[cAttributes_cls.md](scripts/cAttributes_cls.md "script docs")  
+cDetailsAPI|ClassModule|[cDetailsAPI.cls](scripts/cDetailsAPI.cls "script source")|[cDetailsAPI_cls.md](scripts/cDetailsAPI_cls.md "script docs")  
+cStore|ClassModule|[cStore.cls](scripts/cStore.cls "script source")|[cStore_cls.md](scripts/cStore_cls.md "script docs")  
+cTableSlots|ClassModule|[cTableSlots.cls](scripts/cTableSlots.cls "script source")|[cTableSlots_cls.md](scripts/cTableSlots_cls.md "script docs")  
   
 ### All dependencies and sub dependencies in this repo  
 *name*|*type*|*source*|*docs*  
 ---|---|---|---  
-Utillities|StdModule|[Utillities.vba](libraries/Utillities.vba "library source")|[Utillities_vba.md](libraries/Utillities_vba.md "library docs")  
-Attendance|StdModule|[Attendance.vba](libraries/Attendance.vba "library source")|[Attendance_vba.md](libraries/Attendance_vba.md "library docs")  
-Details|StdModule|[Details.vba](libraries/Details.vba "library source")|[Details_vba.md](libraries/Details_vba.md "library docs")  
-TrustAccess|StdModule|[TrustAccess.vba](libraries/TrustAccess.vba "library source")|[TrustAccess_vba.md](libraries/TrustAccess_vba.md "library docs")  
   
 ###Excel references  
 ####These references were detected in the workbook (Combo-Link.xlsm) this repo was created from. You may not need them all  
