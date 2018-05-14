@@ -2,7 +2,7 @@
 ## VBA Module: **[Attendance](/scripts/Attendance.vba "source is here")**
 ### Type: StdModule  
 
-This procedure list for repo (Combo-Link) was automatically created on 14/05/2018 17:53:11 by VBAGit.
+This procedure list for repo (Combo-Link) was automatically created on 15/05/2018 00:17:05 by VBAGit.
 For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation")
 
 Below is a section for each procedure in Attendance
@@ -21,14 +21,14 @@ Description: ****
 
 
 ---
-VBA Procedure: **UpdateAttendanceList_v1**  
+VBA Procedure: **UpdateAttendanceList_v2**  
 Type: **Sub**  
 Returns: **void**  
 Return description: ****  
 Scope: **Public**  
 Description: ****  
 
-*Sub UpdateAttendanceList_v1(Optional ByVal save As Boolean = True)*  
+*Sub UpdateAttendanceList_v2(Optional ByVal save As Boolean = True)*  
 
 *name*|*type*|*optional*|*default*|*description*
 ---|---|---|---|---

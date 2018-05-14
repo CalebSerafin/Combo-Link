@@ -2,7 +2,7 @@
 ## VBA Module: **[Utillities](/scripts/Utillities.vba "source is here")**
 ### Type: StdModule  
 
-This procedure list for repo (Combo-Link) was automatically created on 14/05/2018 17:53:11 by VBAGit.
+This procedure list for repo (Combo-Link) was automatically created on 15/05/2018 00:17:05 by VBAGit.
 For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation")
 
 Below is a section for each procedure in Utillities
@@ -22,6 +22,34 @@ Description: ****
 ByVal|String|False||
 ByVal|Variant|True||
 ByVal|Variant|True||
+
+
+---
+VBA Procedure: **Calculations_Off_v1**  
+Type: **Function**  
+Returns: **Long**  
+Return description: ****  
+Scope: **Public**  
+Description: ****  
+
+*Function Calculations_Off_v1() As Long*  
+
+**no arguments required for this procedure**
+
+
+---
+VBA Procedure: **Calculations_On_v1**  
+Type: **Sub**  
+Returns: **void**  
+Return description: ****  
+Scope: **Public**  
+Description: ****  
+
+*Sub Calculations_On_v1(ByVal lastCalcValue As Long)*  
+
+*name*|*type*|*optional*|*default*|*description*
+---|---|---|---|---
+ByVal|Long|False||
 
 
 ---

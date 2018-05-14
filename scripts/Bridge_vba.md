@@ -2,7 +2,7 @@
 ## VBA Module: **[Bridge](/scripts/Bridge.vba "source is here")**
 ### Type: StdModule  
 
-This procedure list for repo (Combo-Link) was automatically created on 14/05/2018 17:53:11 by VBAGit.
+This procedure list for repo (Combo-Link) was automatically created on 15/05/2018 00:17:05 by VBAGit.
 For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation")
 
 Below is a section for each procedure in Bridge
@@ -202,3 +202,44 @@ Description: ****
 ---|---|---|---|---
 stringToBeFound|String|False||
 arr|Variant|False||
+
+
+---
+VBA Procedure: **Calculations_Off**  
+Type: **Function**  
+Returns: **Long**  
+Return description: ****  
+Scope: **Public**  
+Description: ****  
+
+*Function Calculations_Off() As Long*  
+
+**no arguments required for this procedure**
+
+
+---
+VBA Procedure: **Calculations_On**  
+Type: **Sub**  
+Returns: **void**  
+Return description: ****  
+Scope: **Public**  
+Description: ****  
+
+*Sub Calculations_On(ByVal lastCalcValue As Long)*  
+
+*name*|*type*|*optional*|*default*|*description*
+---|---|---|---|---
+ByVal|Long|False||
+
+
+---
+VBA Procedure: **CountMembers**  
+Type: **Function**  
+Returns: **Variant**  
+Return description: ****  
+Scope: **Public**  
+Description: ****  
+
+*Public Function CountMembers()*  
+
+**no arguments required for this procedure**

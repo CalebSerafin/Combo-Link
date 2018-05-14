@@ -22,6 +22,28 @@ Function Debug_msg_v1(ByVal msg As String, Optional ByVal code As String = "null
             MsgBox (msg)
         End If
 End Function
+'#############################################################
+'Dim lastCalcValue As Long:lastCalcValue = Calculations_Off '#
+'Call Calculations_On(lastCalcValue):lastCalcValue = 0 ''''''#
+'#############################################################
+Function Calculations_Off_v1() As Long   'Save return for Calculations_On function
+    Dim lastCalcValue As Long
+    With Application
+        lastCalcValue = .Calculation
+        .ScreenUpdating = False
+        .Calculation = xlCalculationManual
+        .EnableEvents = False
+    End With
+    Calculations_Off_v1 = lastCalcValue
+End Function
+Sub Calculations_On_v1(ByVal lastCalcValue As Long)    'Take value from Calculations_Off function
+    With Application
+        .ScreenUpdating = True
+        .Calculation = lastCalcValue
+        .EnableEvents = True
+    End With
+End Sub
+
 Function IsInArray_v1(stringToBeFound As String, arr As Variant) As Boolean
   IsInArray_v1 = (UBound(Filter(arr, stringToBeFound)) > -1)
 End Function
@@ -52,13 +74,10 @@ Function StringMult_v1(ByVal Word As String, ByVal Multiply As Integer) As Strin
     End If
 End Function
 Function addCellData_v1(ByVal mode As String, ByVal sheet As String, ByVal min As Integer, ByVal max As Integer, ByVal rawData As String, ByVal topLeft As Integer, ByVal forceLast As Boolean)
-    Dim lastCalcValue As Long
-    With Application
-        lastCalcValue = .Calculation
-        .ScreenUpdating = False
-        .Calculation = xlCalculationManual
-        .EnableEvents = False
-    End With
+'#############################################################
+Dim lastCalcValue As Long: lastCalcValue = Calculations_Off '#
+'Call Calculations_On(lastCalcValue):lastCalcValue = 0 ''''''#
+'#############################################################
     addCellData_v1 = False
     
     If mode = "row" Or mode = "column" Then
@@ -96,12 +115,10 @@ Function addCellData_v1(ByVal mode As String, ByVal sheet As String, ByVal min A
             End If
         Next index1D
     End If
-    
-    With Application
-        .ScreenUpdating = True
-        .Calculation = lastCalcValue
-        .EnableEvents = True
-    End With
+'#############################################################
+'Dim lastCalcValue As Long:lastCalcValue = Calculations_Off '#
+Call Calculations_On(lastCalcValue): lastCalcValue = 0 ''''''#
+'#############################################################
 End Function
 Sub References_RemoveMissing_v1() 'Removes missing References from VBE
     If Not VBAIsTrusted() Then
@@ -122,68 +139,68 @@ Sub References_RemoveMissing_v1() 'Removes missing References from VBE
     End If
 End Sub
 Sub ScanCommonError_v1() ' Requires v2 Load and Save functions
-    If AttendanceSaving <> True Then
-        Dim wasEnabled As Boolean
-        wasEnabled = Application.EnableEvents
-        Application.EnableEvents = False
-        Application.StatusBar = "Refreshing...."
-        Application.ScreenUpdating = False
-        
-        Dim row As Integer
-        
-        'row = 2
-        'For row = 2 To 65 Step 1
-        '    If ((Worksheets("Details").Cells(row, 1) = "Brink") And (Worksheets("Details").Cells(row, 2) = "Nelson")) Or (Worksheets("Details").Cells(row, 6) = "072 223 2173") Then
-        '        Worksheets("Details").Cells(row, 5) = "Boss"
-        '    End If
-        'Next row
-        If Worksheets("COMPUTING DON'T TOUCH").Cells(5, 12).Value = "Drama Club" Then
-            For row = 2 To maxMembers + 1 Step 1
-                If ((Worksheets("Details").Cells(row, 1) = "Caleb") And (Worksheets("Details").Cells(row, 2) = "Serafin")) Or (Worksheets("Details").Cells(row, 6) = "076 318 9700") Then
-                    Worksheets("Details").Cells(row, 5) = "Memoral of the lost Generation"
-                End If
-            Next row
-        End If
-        '///GapRemover
-        Dim index1D As Integer
-        Dim atColumn As Integer
-        Dim isFree As Boolean
-        For index1D = 2 To maxMembers + 1
-            isFree = True
-            For atColumn = 1 To 7
-                If Not IsEmpty(Worksheets("Details").Cells(index1D, atColumn).Value) Then
-                    isFree = False
-                    Exit For
-                End If
-            Next atColumn
-            If isFree = True And Worksheets("Details").Cells(index1D, 8).Value = ("v2_" & StringMult("0", Int(Worksheets("Attendance").Range("B1").Value))) Then
-                Debug_msg ("Module 1: ScanCommonError_v1: Terminating GapRemover at row: " & index1D)
+'#############################################################
+Dim lastCalcValue As Long: lastCalcValue = Calculations_Off '#
+'Call Calculations_On(lastCalcValue):lastCalcValue = 0 ''''''#
+'##############################################################
+    Application.StatusBar = "Refreshing...."
+    
+    Dim Row As Integer
+    
+    'row = 2
+    'For row = 2 To 65 Step 1
+    '    If ((Worksheets("Details").Cells(row, 1) = "Brink") And (Worksheets("Details").Cells(row, 2) = "Nelson")) Or (Worksheets("Details").Cells(row, 6) = "072 223 2173") Then
+    '        Worksheets("Details").Cells(row, 5) = "Boss"
+    '    End If
+    'Next row
+    If Worksheets("COMPUTING DON'T TOUCH").Cells(5, 12).Value = "Drama Club" Then
+        For Row = 2 To maxMembers + 1 Step 1
+            If ((Worksheets("Details").Cells(Row, 1) = "Caleb") And (Worksheets("Details").Cells(Row, 2) = "Serafin")) Or (Worksheets("Details").Cells(Row, 6) = "076 318 9700") Then
+                Worksheets("Details").Cells(Row, 5) = "Memoral of the lost Generation"
+            End If
+        Next Row
+    End If
+    '///GapRemover
+    Dim index1D As Integer
+    Dim atColumn As Integer
+    Dim isFree As Boolean
+    For index1D = 2 To maxMembers + 1
+        isFree = True
+        For atColumn = 1 To 7
+            If Not IsEmpty(Worksheets("Details").Cells(index1D, atColumn).Value) Then
+                isFree = False
                 Exit For
             End If
-            If isFree = True Then
-                Debug_msg ("Module 1: ScanCommonError_v1: Found data without details at row: " & index1D)
-                Worksheets("Details").Cells(index1D, 8).Value = "v2_" & StringMult("0", Int(Worksheets("Attendance").Range("B1").Value)) '<---This is what requires v2 Load and Save functions (the v2_ part)
-                Call AttendanceData_load
-            End If
-        Next index1D
-        '///End GapRemover
-        
-        If Worksheets("COMPUTING DON'T TOUCH").Cells(5, 12).Value = "Drama Club" Then
-            Dim found As Boolean
-            found = False
-            For row = 2 To maxMembers + 1 + 1 And found = False Step 1
-                If ((Worksheets("Details").Cells(row, 1) = "Caleb") And (Worksheets("Details").Cells(row, 2) = "Serafin")) Or (Worksheets("Details").Cells(row, 6) = "076 318 9700") Then
-                    found = True
-                End If
-            Next row
-            If found <> True Then
-                Call addCellData("row", "Details", 2, maxMembers + 1 + 1, "Caleb\'\Serafin\'\10.5\'\Ex-Technical\'\Memoral of the lost Generation\'\076 318 9700\'\calebserafin@outlook.com\'\v2_" & StringMult("1", Int(Worksheets("Attendance").Range("B1").Value)), 1, True) '<---This is what requires v2 Load and Save functions (the v2_ part)
-                Call AttendanceData_load
-            End If
+        Next atColumn
+        If isFree = True And Worksheets("Details").Cells(index1D, 8).Value = ("v2_" & StringMult("0", Int(Worksheets("Attendance").Range("B1").Value))) Then
+            Debug_msg ("Module 1: ScanCommonError_v1: Terminating GapRemover at row: " & index1D)
+            Exit For
         End If
-        
-        Application.ScreenUpdating = True
-        Application.StatusBar = False
-        Application.EnableEvents = wasEnabled
+        If isFree = True Then
+            Debug_msg ("Module 1: ScanCommonError_v1: Found data without details at row: " & index1D)
+            Worksheets("Details").Cells(index1D, 8).Value = "v2_" & StringMult("0", Int(Worksheets("Attendance").Range("B1").Value)) '<---This is what requires v2 Load and Save functions (the v2_ part)
+            Call AttendanceData_load
+        End If
+    Next index1D
+    '///End GapRemover
+    
+    If Worksheets("COMPUTING DON'T TOUCH").Cells(5, 12).Value = "Drama Club" Then
+        Dim found As Boolean
+        found = False
+        For Row = 2 To maxMembers + 1 + 1 And found = False Step 1
+            If ((Worksheets("Details").Cells(Row, 1) = "Caleb") And (Worksheets("Details").Cells(Row, 2) = "Serafin")) Or (Worksheets("Details").Cells(Row, 6) = "076 318 9700") Then
+                found = True
+            End If
+        Next Row
+        If found <> True Then
+            Call addCellData("row", "Details", 2, maxMembers + 1 + 1, "Caleb\'\Serafin\'\10.5\'\Ex-Technical\'\Memoral of the lost Generation\'\076 318 9700\'\calebserafin@outlook.com\'\v2_" & StringMult("1", Int(Worksheets("Attendance").Range("B1").Value)), 1, True) '<---This is what requires v2 Load and Save functions (the v2_ part)
+            Call AttendanceData_load
+        End If
     End If
+    
+    Application.StatusBar = False
+'#############################################################
+'Dim lastCalcValue As Long:lastCalcValue = Calculations_Off '#
+Call Calculations_On(lastCalcValue): lastCalcValue = 0 ''''''#
+'#############################################################
 End Sub

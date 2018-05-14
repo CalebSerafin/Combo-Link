@@ -76,4 +76,13 @@ End Sub
 Public Function IsInArray(stringToBeFound As String, arr As Variant) As Boolean
   IsInArray = IsInArray_v1(UBound(Filter(arr, stringToBeFound)) > -1)
 End Function
+Function Calculations_Off() As Long   'Save return for Calculations_On function
+    Calculations_Off = Calculations_Off_v1
+End Function
+Sub Calculations_On(ByVal lastCalcValue As Long)    'Take value from Calculations_Off function
+    Calculations_On_v1 (lastCalcValue)
+End Sub
+Public Function CountMembers()
+    CountMembers = CountMembers_v1
+End Function
 '/////  \\\\\\'

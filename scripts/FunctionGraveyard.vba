@@ -84,3 +84,37 @@ Sub AttendanceData_load_v1() 'Number Version
         Call UpdateAttendanceList
     End If
 End Sub
+Sub UpdateAttendanceList_v1(Optional ByVal save As Boolean = True)
+'#############################################################
+Dim lastCalcValue As Long: lastCalcValue = Calculations_Off '#
+'Call Calculations_On(lastCalcValue):lastCalcValue = 0 ''''''#
+'#############################################################
+    Debug_msg ("Attendance: UpdateAttendanceList_v1 called")
+        
+    Dim Row As Integer
+    Row = 3
+    Dim column As Integer
+    column = 2
+    Dim practiceNo As Integer
+    practiceNo = Worksheets("Attendance").Cells(1, 2).Value
+    
+    For Row = 3 To CountMembers + 2
+        Dim sum As Integer
+        sum = 0
+        For column = 3 To practiceNo + 2
+            If Worksheets("Attendance").Cells(Row, column).Value = "Y" Then sum = sum + 1
+        Next column
+        Worksheets("Attendance").Cells(Row, 2).Value = sum / practiceNo
+        Worksheets("Details").Cells(Row - 1, 9).Value = sum / practiceNo
+    Next Row
+    
+    If save = True Then
+        Debug_msg ("Module1: UpdateAttendanceList_v1: proceeding with save function")
+        Call AttendanceData_save
+    End If
+    
+'#############################################################
+'Dim lastCalcValue As Long:lastCalcValue = Calculations_Off '#
+Call Calculations_On(lastCalcValue): lastCalcValue = 0 ''''''#
+'#############################################################
+End Sub
