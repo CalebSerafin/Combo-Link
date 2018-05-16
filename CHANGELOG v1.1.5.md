@@ -1,11 +1,11 @@
-## VBA Project: Combo-Link ##
-## Makes, links and syncs different data sheets into Summery sheets. ##
-# Recent Change Log: v1.1.5 #
+### VBA Project: Combo-Link ###
+### Makes, links and syncs different data sheets into Summery sheets. ###
 
-# Optimisation #
+# Recent Change Log: v1.1.5 #
+## Optimisation ##
 Optimising all large range and 2 dimensional cell interactions to improve performance.
 
-## Overall ##
+### Overall ###
 ```diff
 +Added All Modules and Classes to VBAGit List.
 +Added All Userforms to VBAGit List.
