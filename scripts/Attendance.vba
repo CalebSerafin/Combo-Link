@@ -4,43 +4,54 @@
 '
 '===============================================================
 Option Explicit
-Sub AttendanceData_save_v2() 'String version 'Uncompressed
+Sub AttendanceData_save_v3() 'String version 'Uncompressed
 '#############################################################
 Dim lastCalcValue As Long: lastCalcValue = Calculations_Off '#
 'Call Calculations_On(lastCalcValue):lastCalcValue = 0 ''''''#
 '#############################################################
-    Debug_msg ("Module1: AttendanceData_save_v2(): Application.EnableEvents found at " & Application.EnableEvents)
+    Debug_msg ("Module1: AttendanceData_save_v3() started")
     
-    Debug_msg ("Module1: AttendanceData_save_v2() started")
-    Dim att_row As Integer
-    att_row = 3
-    Dim att_column As Integer
-    att_column = 3
+    Dim PracticeNo As Long
+    Dim AmountMembers As Long
+    Dim Column As Long
+    Dim Row As Long
+    Dim CurrentAttData As String    'Data from individual string from AttendanceData
+    Dim Serial As String    'Data stored in ATTENDANCE DATA COLOMN in details
+    Dim SerialAmmend As String  'Whats added on to serail
     
-    Dim det_row As Integer
-    det_row = 2
-    Dim det_column As Integer
-    det_column = 8
-    
-    Dim PracticeNo As Integer
     PracticeNo = Worksheets("Attendance").Cells(1, 2).Value
-    Dim serial As String
-    serial = ""
+    AmountMembers = CountMembers
+    Serial = ""
     
-    For att_row = 3 To CountMembers + 2
-        
-        serial = ""
-        For att_column = 3 To PracticeNo + 2
-            If IsEmpty(Worksheets("Attendance").Cells(att_row, att_column).Value) Then serial = serial & 0
-            If Worksheets("Attendance").Cells(att_row, att_column).Value = "Y" Then serial = serial & 1
-            If Worksheets("Attendance").Cells(att_row, att_column).Value = "N" Then serial = serial & 2
-            If Worksheets("Attendance").Cells(att_row, att_column).Value = "?" Then serial = serial & 3
-        Next att_column
-        
-        Worksheets("Details").Cells(det_row, det_column).Value = "v2_" & serial
-        det_row = det_row + 1
-    Next att_row
+    Dim AttendanceData As Variant   'Range of cells from Attendance that represent the attendance marking
+    Dim DetailsStorage As Variant   'Where the serialized data goes
     
+    With Worksheets("Attendance")
+        AttendanceData = .Range(.Cells(3, 3), .Cells(AmountMembers + 2, PracticeNo + 2))
+    End With
+    ReDim DetailsStorage(1 To AmountMembers, 1 To 1)
+    
+    For Row = 1 To AmountMembers
+        
+        Serial = ""
+        For Column = 1 To PracticeNo
+            CurrentAttData = AttendanceData(Row, Column)
+            
+            SerialAmmend = "0"  'Default if no other values are found
+            If CurrentAttData = "Y" Then SerialAmmend = "1"
+            If CurrentAttData = "N" Then SerialAmmend = "2"
+            If CurrentAttData = "?" Then SerialAmmend = "3"
+            
+            Serial = Serial & SerialAmmend
+        Next Column
+        
+        DetailsStorage(Row, 1) = "v2_" & Serial 'seraial version does not always have to match function version,
+                                                          '^^^only if the the serialization protocall changes, ie: moving from plain to compressed data
+    Next Row
+    
+    With Worksheets("Details")
+        .Range(.Cells(2, 8), .Cells(AmountMembers + 1, 8)).Value = DetailsStorage
+    End With
 '#############################################################
 'Dim lastCalcValue As Long:lastCalcValue = Calculations_Off '#
 Call Calculations_On(lastCalcValue): lastCalcValue = 0 ''''''#
@@ -133,33 +144,35 @@ Dim lastCalcValue As Long: lastCalcValue = Calculations_Off '#
     Dim Column As Long 'Internal column starting at 1 going to PracticeNo
     Dim SummeryPercentRange As Variant 'Where we paste out data            '[!]max is IDK
     Dim PracticeNo As Long 'How many entries we are working with
+    Dim AmountMembers As Long   'how many members there are
     Dim AttendanceCells As Variant 'Where we load our data                                  '[!]max is IDK
     Dim RowSum As Long 'Current sum for that row
     
-    ReDim SummeryPercentRange(CountMembers - 1, 0)
+    ReDim SummeryPercentRange(1 To CountMembers, 1 To 1)
     PracticeNo = CInt(Worksheets("Attendance").Cells(1, 2).Value)
+    AmountMembers = CountMembers
     With Worksheets("Attendance")
-        AttendanceCells = .Range(.Cells(3, 3), .Cells(CountMembers + 2, PracticeNo + 2))
+        AttendanceCells = .Range(.Cells(3, 3), .Cells(AmountMembers + 2, PracticeNo + 2))
     End With
     RowSum = 0
 
-    For Row = 1 To CountMembers
+    For Row = 1 To AmountMembers
         RowSum = 0
         For Column = 1 To PracticeNo
             If AttendanceCells(Row, Column) = "Y" Then RowSum = RowSum + 1
         Next Column
-        SummeryPercentRange(Row - 1, 0) = CStr(RowSum / PracticeNo)
+        SummeryPercentRange(Row, 1) = CStr(RowSum / PracticeNo)
     Next Row
     
     With Worksheets("Attendance")
-        .Range(.Cells(3, 2), .Cells(CountMembers + 2, 2)) = SummeryPercentRange
+        .Range(.Cells(3, 2), .Cells(AmountMembers + 2, 2)) = SummeryPercentRange
     End With
     With Worksheets("Details")
-        .Range(.Cells(2, 9), .Cells(CountMembers + 1, 9)) = SummeryPercentRange
+        .Range(.Cells(2, 9), .Cells(AmountMembers + 1, 9)) = SummeryPercentRange
     End With
     
     If save = True Then
-        Debug_msg ("Module1: UpdateAttendanceList_v1: proceeding with save function")
+        Debug_msg ("Module1: UpdateAttendanceList_v2: proceeding with save function")
         Call AttendanceData_save
     End If
     
@@ -168,48 +181,55 @@ Dim lastCalcValue As Long: lastCalcValue = Calculations_Off '#
 Call Calculations_On(lastCalcValue): lastCalcValue = 0 ''''''#
 '#############################################################
 End Sub
-Sub AttendanceData_load_v2() 'String version 'Uncompressed
+Sub AttendanceData_load_v3() 'String version 'Uncompressed
 '#############################################################
 Dim lastCalcValue As Long: lastCalcValue = Calculations_Off '#
 'Call Calculations_On(lastCalcValue):lastCalcValue = 0 ''''''#
 '#############################################################
+    Debug_msg ("Module1: AttendanceData_load_v3() started")
     Application.StatusBar = "Please Wait ... Syncing Attendance List: "
-    Dim PracticeNo As Integer
+    
+    Dim PracticeNo As Long
+    Dim AmountMembers As Long
+    Dim Column As Long
+    Dim Row As Long
+    Dim CurrentSerialChar As String    'Data from individual string from AttendanceData
+    Dim Serial As String    'Individual Data stored in ATTENDANCE DATA COLOMN in details
+    Dim CurrentAttChar As String    'Data for individual char for AttendanceData
+    
     PracticeNo = Worksheets("Attendance").Cells(1, 2).Value
-    Dim serial As String
-    serial = ""
-
-    Dim att_row As Integer
-    att_row = 3
-    Dim att_column As Integer
-    att_column = 3
+    AmountMembers = CountMembers
     
-    Dim det_row As Integer
-    det_row = 2
-    Dim det_column As Integer
-    det_column = 8
+    Dim DetailsStorage As Variant   'Where the serialized data is from
+    Dim AttendanceData As Variant   'Range of cells from Attendance that represent the attendance marking
     
-    For att_row = 3 To CountMembers + 2
-        Application.StatusBar = "Please Wait ... Syncing Attendance List: " & att_row - 3 & "/" & maxMembers
-        
-        serial = Mid(CStr(Worksheets("Details").Cells(det_row, det_column).Value), 4)
-        att_column = PracticeNo + 2
-        
-        For att_column = 3 To PracticeNo + 2
-            If Mid(serial, att_column - 2, 1) = "0" Then
-                Worksheets("Attendance").Cells(att_row, att_column).Value = ""
-            ElseIf Mid(serial, att_column - 2, 1) = "1" Then
-                Worksheets("Attendance").Cells(att_row, att_column).Value = "Y"
-            ElseIf Mid(serial, att_column - 2, 1) = "2" Then
-                Worksheets("Attendance").Cells(att_row, att_column).Value = "N"
-            Else
-                Worksheets("Attendance").Cells(att_row, att_column).Value = "?"
-            End If
+    With Worksheets("Details")
+        DetailsStorage = .Range(.Cells(2, 8), .Cells(AmountMembers + 1, 8))
+    End With
+    ReDim AttendanceData(1 To AmountMembers, 1 To PracticeNo)
+    
+    If Mid(CStr(DetailsStorage(1, 1)), 2, 1) <> "2" Then  'checking serial version
+        On Error GoTo IncompatibleVersion
+        Err.Raise 1, "AttendanceData_load_v3", ("AttendanceData_load_v3 is incompatible with Version " & Mid(CStr(DetailsStorage(1, 1)), 2, 1) & " serails. Please update your Combo-Link to the latest version!")
+    End If
+    
+    For Row = 1 To AmountMembers
+        Serial = Mid(CStr(DetailsStorage(Row, 1)), 4)
+        For Column = 1 To PracticeNo
+            CurrentSerialChar = Mid(Serial, Column, 1)
             
-        Next att_column
-        
-        det_row = det_row + 1
-    Next att_row
+            CurrentAttChar = " " 'Default if no other values found.
+            If CurrentSerialChar = "1" Then CurrentAttChar = "Y"
+            If CurrentSerialChar = "2" Then CurrentAttChar = "N"
+            If CurrentSerialChar = "3" Then CurrentAttChar = "?"
+            
+            AttendanceData(Row, Column) = CurrentAttChar
+        Next Column
+    Next Row
+    
+    With Worksheets("Attendance")
+        .Range(.Cells(3, 3), .Cells(AmountMembers + 2, PracticeNo + 2)).Value = AttendanceData
+    End With
 
     
     Application.StatusBar = False
@@ -218,6 +238,10 @@ Dim lastCalcValue As Long: lastCalcValue = Calculations_Off '#
 'Dim lastCalcValue As Long:lastCalcValue = Calculations_Off '#
 Call Calculations_On(lastCalcValue): lastCalcValue = 0 ''''''#
 '#############################################################
+Exit Sub
+IncompatibleVersion:
+    Call Debug_msg(Err.source & ": " & Err.Description, "Incompatible", "Notify")
+    Err.Clear
 End Sub
 Sub PositionAttendanceColomnButtons_v1(Optional ByVal colomn As Integer = 0)
     If colomn < 1 Then

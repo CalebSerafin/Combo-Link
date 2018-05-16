@@ -9,34 +9,34 @@ Sub AttendanceData_save_v1() 'number version
     If Application.EnableEvents <> True Then
         Debug_msg ("Module1 Ln13: AttendanceData_save()")
         Debug_msg ("Module1 Ln14: Application.EnableEvents = " & Application.EnableEvents)
-        Dim att_row As Integer
-        att_row = 3
-        Dim att_column As Integer
-        att_column = 3
+        Dim Att_Row As Integer
+        Att_Row = 3
+        Dim Att_Column As Integer
+        Att_Column = 3
         
-        Dim det_row As Integer
-        det_row = 2
-        Dim det_column As Integer
-        det_column = 8
+        Dim Det_Row As Integer
+        Det_Row = 2
+        Dim Det_Column As Integer
+        Det_Column = 8
         
         Dim PracticeNo As Integer
         PracticeNo = Worksheets("Attendance").Cells(1, 2).Value
-        Dim serial As Long
-        serial = 0
+        Dim Serial As Long
+        Serial = 0
         
-        For att_row = 3 To 37
+        For Att_Row = 3 To 37
             
-            serial = 0
-            For att_column = 3 To PracticeNo + 2
-                If IsEmpty(Worksheets("Attendance").Cells(att_row, att_column).Value) Then serial = serial + 0 * 4 ^ (att_column - 3)
-                If Worksheets("Attendance").Cells(att_row, att_column).Value = "Y" Then serial = serial + 1 * 4 ^ (att_column - 3)
-                If Worksheets("Attendance").Cells(att_row, att_column).Value = "N" Then serial = serial + 2 * 4 ^ (att_column - 3)
-                If Worksheets("Attendance").Cells(att_row, att_column).Value = "?" Then serial = serial + 3 * 4 ^ (att_column - 3)
-            Next att_column
+            Serial = 0
+            For Att_Column = 3 To PracticeNo + 2
+                If IsEmpty(Worksheets("Attendance").Cells(Att_Row, Att_Column).Value) Then Serial = Serial + 0 * 4 ^ (Att_Column - 3)
+                If Worksheets("Attendance").Cells(Att_Row, Att_Column).Value = "Y" Then Serial = Serial + 1 * 4 ^ (Att_Column - 3)
+                If Worksheets("Attendance").Cells(Att_Row, Att_Column).Value = "N" Then Serial = Serial + 2 * 4 ^ (Att_Column - 3)
+                If Worksheets("Attendance").Cells(Att_Row, Att_Column).Value = "?" Then Serial = Serial + 3 * 4 ^ (Att_Column - 3)
+            Next Att_Column
             
-            Worksheets("Details").Cells(det_row, det_column).Value = serial
-            det_row = det_row + 1
-        Next att_row
+            Worksheets("Details").Cells(Det_Row, Det_Column).Value = Serial
+            Det_Row = Det_Row + 1
+        Next Att_Row
         
     End If
 End Sub
@@ -45,41 +45,41 @@ Sub AttendanceData_load_v1() 'Number Version
         Debug_msg ("Module1 Ln73: AttendanceSaving: " & AttendanceSaving)
         Dim PracticeNo As Integer
         PracticeNo = Worksheets("Attendance").Cells(1, 2).Value
-        Dim serial As Long
-        serial = 0
+        Dim Serial As Long
+        Serial = 0
     
-        Dim att_row As Integer
-        att_row = 3
-        Dim att_column As Integer
-        att_column = 3
+        Dim Att_Row As Integer
+        Att_Row = 3
+        Dim Att_Column As Integer
+        Att_Column = 3
         
-        Dim det_row As Integer
-        det_row = 2
-        Dim det_column As Integer
-        det_column = 8
+        Dim Det_Row As Integer
+        Det_Row = 2
+        Dim Det_Column As Integer
+        Det_Column = 8
         
-        For att_row = 3 To 37
+        For Att_Row = 3 To 37
             
-            serial = Worksheets("Details").Cells(det_row, det_column).Value
-            att_column = PracticeNo + 2
+            Serial = Worksheets("Details").Cells(Det_Row, Det_Column).Value
+            Att_Column = PracticeNo + 2
             
-            For att_column = PracticeNo + 2 To 3 Step -1
-                If serial - (3 * 4 ^ (att_column - 3)) >= 0 Then
-                    Worksheets("Attendance").Cells(att_row, att_column).Value = "?"
-                    serial = serial - (3 * 4 ^ (att_column - 3))
-                ElseIf serial - (2 * 4 ^ (att_column - 3)) >= 0 Then
-                    Worksheets("Attendance").Cells(att_row, att_column).Value = "N"
-                    serial = serial - (2 * 4 ^ (att_column - 3))
-                ElseIf serial - (1 * 4 ^ (att_column - 3)) >= 0 Then
-                    Worksheets("Attendance").Cells(att_row, att_column).Value = "Y"
-                    serial = serial - (1 * 4 ^ (att_column - 3))
+            For Att_Column = PracticeNo + 2 To 3 Step -1
+                If Serial - (3 * 4 ^ (Att_Column - 3)) >= 0 Then
+                    Worksheets("Attendance").Cells(Att_Row, Att_Column).Value = "?"
+                    Serial = Serial - (3 * 4 ^ (Att_Column - 3))
+                ElseIf Serial - (2 * 4 ^ (Att_Column - 3)) >= 0 Then
+                    Worksheets("Attendance").Cells(Att_Row, Att_Column).Value = "N"
+                    Serial = Serial - (2 * 4 ^ (Att_Column - 3))
+                ElseIf Serial - (1 * 4 ^ (Att_Column - 3)) >= 0 Then
+                    Worksheets("Attendance").Cells(Att_Row, Att_Column).Value = "Y"
+                    Serial = Serial - (1 * 4 ^ (Att_Column - 3))
                 Else
-                    Worksheets("Attendance").Cells(att_row, att_column).Value = ""
+                    Worksheets("Attendance").Cells(Att_Row, Att_Column).Value = ""
                 End If
-            Next att_column
+            Next Att_Column
             
-            det_row = det_row + 1
-        Next att_row
+            Det_Row = Det_Row + 1
+        Next Att_Row
     
         Call UpdateAttendanceList
     End If
@@ -113,6 +113,99 @@ Dim lastCalcValue As Long: lastCalcValue = Calculations_Off '#
         Call AttendanceData_save
     End If
     
+'#############################################################
+'Dim lastCalcValue As Long:lastCalcValue = Calculations_Off '#
+Call Calculations_On(lastCalcValue): lastCalcValue = 0 ''''''#
+'#############################################################
+End Sub
+Sub AttendanceData_save_v2() 'String version 'Uncompressed
+'#############################################################
+Dim lastCalcValue As Long: lastCalcValue = Calculations_Off '#
+'Call Calculations_On(lastCalcValue):lastCalcValue = 0 ''''''#
+'#############################################################
+    Debug_msg ("Module1: AttendanceData_save_v2(): Application.EnableEvents found at " & Application.EnableEvents)
+    
+    Debug_msg ("Module1: AttendanceData_save_v2() started")
+    Dim Att_Row As Integer
+    Att_Row = 3
+    Dim Att_Column As Integer
+    Att_Column = 3
+    
+    Dim Det_Row As Integer
+    Det_Row = 2
+    Dim Det_Column As Integer
+    Det_Column = 8
+    
+    Dim PracticeNo As Integer
+    PracticeNo = Worksheets("Attendance").Cells(1, 2).Value
+    Dim Serial As String
+    Serial = ""
+    
+    For Att_Row = 3 To CountMembers + 2
+        
+        Serial = ""
+        For Att_Column = 3 To PracticeNo + 2
+            If IsEmpty(Worksheets("Attendance").Cells(Att_Row, Att_Column).Value) Then Serial = Serial & 0
+            If Worksheets("Attendance").Cells(Att_Row, Att_Column).Value = "Y" Then Serial = Serial & 1
+            If Worksheets("Attendance").Cells(Att_Row, Att_Column).Value = "N" Then Serial = Serial & 2
+            If Worksheets("Attendance").Cells(Att_Row, Att_Column).Value = "?" Then Serial = Serial & 3
+        Next Att_Column
+        
+        Worksheets("Details").Cells(Det_Row, Det_Column).Value = "v2_" & Serial
+        Det_Row = Det_Row + 1
+    Next Att_Row
+    
+'#############################################################
+'Dim lastCalcValue As Long:lastCalcValue = Calculations_Off '#
+Call Calculations_On(lastCalcValue): lastCalcValue = 0 ''''''#
+'#############################################################
+End Sub
+Sub AttendanceData_load_v2() 'String version 'Uncompressed
+'#############################################################
+Dim lastCalcValue As Long: lastCalcValue = Calculations_Off '#
+'Call Calculations_On(lastCalcValue):lastCalcValue = 0 ''''''#
+'#############################################################
+    Application.StatusBar = "Please Wait ... Syncing Attendance List: "
+    Dim PracticeNo As Integer
+    PracticeNo = Worksheets("Attendance").Cells(1, 2).Value
+    Dim Serial As String
+    Serial = ""
+
+    Dim Att_Row As Integer
+    Att_Row = 3
+    Dim Att_Column As Integer
+    Att_Column = 3
+    
+    Dim Det_Row As Integer
+    Det_Row = 2
+    Dim Det_Column As Integer
+    Det_Column = 8
+    
+    For Att_Row = 3 To CountMembers + 2
+        Application.StatusBar = "Please Wait ... Syncing Attendance List: " & Att_Row - 3 & "/" & maxMembers
+        
+        Serial = Mid(CStr(Worksheets("Details").Cells(Det_Row, Det_Column).Value), 4)
+        Att_Column = PracticeNo + 2
+        
+        For Att_Column = 3 To PracticeNo + 2
+            If Mid(Serial, Att_Column - 2, 1) = "0" Then
+                Worksheets("Attendance").Cells(Att_Row, Att_Column).Value = ""
+            ElseIf Mid(Serial, Att_Column - 2, 1) = "1" Then
+                Worksheets("Attendance").Cells(Att_Row, Att_Column).Value = "Y"
+            ElseIf Mid(Serial, Att_Column - 2, 1) = "2" Then
+                Worksheets("Attendance").Cells(Att_Row, Att_Column).Value = "N"
+            Else
+                Worksheets("Attendance").Cells(Att_Row, Att_Column).Value = "?"
+            End If
+            
+        Next Att_Column
+        
+        Det_Row = Det_Row + 1
+    Next Att_Row
+
+    
+    Application.StatusBar = False
+    Call UpdateAttendanceList(False)
 '#############################################################
 'Dim lastCalcValue As Long:lastCalcValue = Calculations_Off '#
 Call Calculations_On(lastCalcValue): lastCalcValue = 0 ''''''#

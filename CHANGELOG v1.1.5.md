@@ -23,12 +23,16 @@ Optimising all large range and 2 dimensional cell interactions to improve perfor
 -Removed use of Range object for optimisation since it's a pointer
 +Added use of Variants instead of Range objects
 +Tested out Optimisation on UpdateAttendanceList_v2, It worked.
++Changed Most Integers in range functions to longs
+-Removed direct range calls
++Optimized all functions that work with ranges
 ```
 
 ## Nearby Goals ##
 - [x] Fixing worksheet not updating.
 - [x] Fixing References_RemoveMissing crashing.
-- [ ] Optimising all large range and 2 dimensional cell interactions to improve performance.
+- [x] Optimising all large range and 2 dimensional cell interactions to improve performance.
+- [ ] Merge UpdateAttendanceList_v2 with AttendanceData_save_v2
 - [ ] Completing Attributes Class System to improve combustibility and generic handling of different types of worksheets.
 - [ ] Creating the first worksheet to utilise the Attributes Class System, the Score worksheet.
 - [ ] Create Own GitSync Macro.

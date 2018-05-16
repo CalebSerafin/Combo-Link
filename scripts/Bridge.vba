@@ -47,14 +47,14 @@ Public Function addCellData(ByVal mode As String, ByVal sheet As String, ByVal m
 End Function
 Public Sub AttendanceData_save()
     Call IREC
-    Call AttendanceData_save_v2
+    Call AttendanceData_save_v3
 End Sub
 Public Sub UpdateAttendanceList(Optional ByVal save As Boolean = True)
     Call UpdateAttendanceList_v2(save)
 End Sub
 Public Sub AttendanceData_load()
     Call IREC
-    Call AttendanceData_load_v2
+    Call AttendanceData_load_v3
 End Sub
 Public Sub ScanCommonError()
     Call IREC
