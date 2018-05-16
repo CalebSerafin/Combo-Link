@@ -2,7 +2,7 @@
 ## VBA Module: **[Attendance](/scripts/Attendance.vba "source is here")**
 ### Type: StdModule  
 
-This procedure list for repo (Combo-Link) was automatically created on 16/05/2018 20:13:07 by VBAGit.
+This procedure list for repo (Combo-Link) was automatically created on 16/05/2018 20:28:47 by VBAGit.
 For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation")
 
 Below is a section for each procedure in Attendance

@@ -16,6 +16,36 @@ Public Function Debug_msg(ByVal msg As String, Optional ByVal code As String = "
 End Function
 '/////////  \\\\\\\\\'
 
+'\\\Initializers///'
+Public Sub Initialize()
+    '///removes enable Macro Rectangle
+    If Worksheets("COMPUTING DON'T TOUCH").Range("F26").Value = "Y" Then
+        '///removes broken references
+        Call CheckTrustAccess
+        Call References_RemoveMissing '[!]''Undefined behavour in non-programmatically allowed macro
+        '///removes enable Macro Rectangle
+        'On Error Resume Next
+        'Worksheets("Details").Shapes("Rectangle 1").Delete
+        'On Error GoTo 0
+    End If
+    '///maxMembers
+    dataTableOld = "nil"
+    AttendanceSaving = False
+    maxMembers = Int(Worksheets("COMPUTING DON'T TOUCH").Cells(15, 6).Value)
+
+    Application.EnableEvents = False '===== Basically Refresh to get filter buttons to werk
+    Call AttendanceData_load
+    Application.EnableEvents = True
+    '///Version Number
+    Worksheets("COMPUTING DON'T TOUCH").Range("F20").Value = "v1.1.5"
+
+
+
+    '///First Time Opened   <--- Put last
+    Worksheets("COMPUTING DON'T TOUCH").Range("F26").Value = "N"
+End Sub
+'//////// \\\\\\\\\'
+
 '\\\Initializer Runtime Error Check///' 'Please call in your functions to allow checking
 Public Sub IREC()
     If (maxMembers = 0 And maxMembers <> Int(Worksheets("COMPUTING DON'T TOUCH").Cells(15, 6).Value)) Or maxMembers = Null Then
