@@ -19,15 +19,15 @@ Sub AttendanceData_save_v1() 'number version
         Dim det_column As Integer
         det_column = 8
         
-        Dim practiceNo As Integer
-        practiceNo = Worksheets("Attendance").Cells(1, 2).Value
+        Dim PracticeNo As Integer
+        PracticeNo = Worksheets("Attendance").Cells(1, 2).Value
         Dim serial As Long
         serial = 0
         
         For att_row = 3 To 37
             
             serial = 0
-            For att_column = 3 To practiceNo + 2
+            For att_column = 3 To PracticeNo + 2
                 If IsEmpty(Worksheets("Attendance").Cells(att_row, att_column).Value) Then serial = serial + 0 * 4 ^ (att_column - 3)
                 If Worksheets("Attendance").Cells(att_row, att_column).Value = "Y" Then serial = serial + 1 * 4 ^ (att_column - 3)
                 If Worksheets("Attendance").Cells(att_row, att_column).Value = "N" Then serial = serial + 2 * 4 ^ (att_column - 3)
@@ -43,8 +43,8 @@ End Sub
 Sub AttendanceData_load_v1() 'Number Version
     If AttendanceSaving <> True And Application.EnableEvents <> True Then
         Debug_msg ("Module1 Ln73: AttendanceSaving: " & AttendanceSaving)
-        Dim practiceNo As Integer
-        practiceNo = Worksheets("Attendance").Cells(1, 2).Value
+        Dim PracticeNo As Integer
+        PracticeNo = Worksheets("Attendance").Cells(1, 2).Value
         Dim serial As Long
         serial = 0
     
@@ -61,9 +61,9 @@ Sub AttendanceData_load_v1() 'Number Version
         For att_row = 3 To 37
             
             serial = Worksheets("Details").Cells(det_row, det_column).Value
-            att_column = practiceNo + 2
+            att_column = PracticeNo + 2
             
-            For att_column = practiceNo + 2 To 3 Step -1
+            For att_column = PracticeNo + 2 To 3 Step -1
                 If serial - (3 * 4 ^ (att_column - 3)) >= 0 Then
                     Worksheets("Attendance").Cells(att_row, att_column).Value = "?"
                     serial = serial - (3 * 4 ^ (att_column - 3))
@@ -93,19 +93,19 @@ Dim lastCalcValue As Long: lastCalcValue = Calculations_Off '#
         
     Dim Row As Integer
     Row = 3
-    Dim column As Integer
-    column = 2
-    Dim practiceNo As Integer
-    practiceNo = Worksheets("Attendance").Cells(1, 2).Value
+    Dim Column As Integer
+    Column = 2
+    Dim PracticeNo As Integer
+    PracticeNo = Worksheets("Attendance").Cells(1, 2).Value
     
     For Row = 3 To CountMembers + 2
         Dim sum As Integer
         sum = 0
-        For column = 3 To practiceNo + 2
-            If Worksheets("Attendance").Cells(Row, column).Value = "Y" Then sum = sum + 1
-        Next column
-        Worksheets("Attendance").Cells(Row, 2).Value = sum / practiceNo
-        Worksheets("Details").Cells(Row - 1, 9).Value = sum / practiceNo
+        For Column = 3 To PracticeNo + 2
+            If Worksheets("Attendance").Cells(Row, Column).Value = "Y" Then sum = sum + 1
+        Next Column
+        Worksheets("Attendance").Cells(Row, 2).Value = sum / PracticeNo
+        Worksheets("Details").Cells(Row - 1, 9).Value = sum / PracticeNo
     Next Row
     
     If save = True Then

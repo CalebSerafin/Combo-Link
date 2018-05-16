@@ -20,6 +20,9 @@ Optimising all large range and 2 dimensional cell interactions to improve perfor
 +Added Calculation Toggle Function and Sub.
 +Added CountMembers_v1 which will Greatly improve performance.
 +Duplicated UpdateAttendanceList_v1 to allow working code.
+-Removed use of Range object for optimisation since it's a pointer
++Added use of Variants instead of Range objects
++Tested out Optimisation on UpdateAttendanceList_v2, It worked.
 ```
 
 ## Nearby Goals ##
@@ -28,6 +31,6 @@ Optimising all large range and 2 dimensional cell interactions to improve perfor
 - [ ] Optimising all large range and 2 dimensional cell interactions to improve performance.
 - [ ] Completing Attributes Class System to improve combustibility and generic handling of different types of worksheets.
 - [ ] Creating the first worksheet to utilise the Attributes Class System, the Score worksheet.
-- [ ] Creat Own GitSync Macro.
+- [ ] Create Own GitSync Macro.
 - [ ] Converting the Attendance worksheet and all its functions to use Attributes Class System.
 - [ ] More to come...

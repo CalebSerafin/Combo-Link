@@ -17,6 +17,7 @@ Dim lastCalcValue As Long: lastCalcValue = Calculations_Off '#
         Dim Row As Integer
         Dim WholeAddr As String
         Dim FullRange As Range
+        
         Row = 1
         WholeAddr = "B2:B" & (RowMin + 1)
         Set FullRange = Worksheets("Details").Range(WholeAddr)

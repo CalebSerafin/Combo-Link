@@ -50,7 +50,7 @@ Public Sub AttendanceData_save()
     Call AttendanceData_save_v2
 End Sub
 Public Sub UpdateAttendanceList(Optional ByVal save As Boolean = True)
-    Call UpdateAttendanceList_v1(save)
+    Call UpdateAttendanceList_v2(save)
 End Sub
 Public Sub AttendanceData_load()
     Call IREC

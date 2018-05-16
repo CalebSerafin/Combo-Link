@@ -2,7 +2,7 @@
 ## VBA Module: **[Attendance](/scripts/Attendance.vba "source is here")**
 ### Type: StdModule  
 
-This procedure list for repo (Combo-Link) was automatically created on 15/05/2018 00:17:05 by VBAGit.
+This procedure list for repo (Combo-Link) was automatically created on 16/05/2018 18:33:15 by VBAGit.
 For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation")
 
 Below is a section for each procedure in Attendance
@@ -16,6 +16,49 @@ Scope: **Public**
 Description: ****  
 
 *Sub AttendanceData_save_v2()*  
+
+**no arguments required for this procedure**
+
+
+---
+VBA Procedure: **testIntMax**  
+Type: **Function**  
+Returns: **Long**  
+Return description: ****  
+Scope: **Public**  
+Description: ****  
+
+*Function testIntMax(ByVal InputInt As Long) As Long*  
+
+*name*|*type*|*optional*|*default*|*description*
+---|---|---|---|---
+ByVal|Long|False||
+
+
+---
+VBA Procedure: **testLongMax**  
+Type: **Function**  
+Returns: **Long**  
+Return description: ****  
+Scope: **Public**  
+Description: ****  
+
+*Function testLongMax(ByVal InputInt As Long) As Long*  
+
+*name*|*type*|*optional*|*default*|*description*
+---|---|---|---|---
+ByVal|Long|False||
+
+
+---
+VBA Procedure: **TestforZero**  
+Type: **Function**  
+Returns: **Variant**  
+Return description: ****  
+Scope: **Public**  
+Description: ****  
+
+*Function TestforZero()*  
 
 **no arguments required for this procedure**
 
