@@ -2,7 +2,7 @@
 ## VBA Module: **[Utillities](/scripts/Utillities.vba "source is here")**
 ### Type: StdModule  
 
-This procedure list for repo (Combo-Link) was automatically created on 16/05/2018 20:28:47 by VBAGit.
+This procedure list for repo (Combo-Link) was automatically created on 31/07/2018 23:42:56 by VBAGit.
 For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation")
 
 Below is a section for each procedure in Utillities
@@ -76,11 +76,11 @@ Return description: ****
 Scope: **Public**  
 Description: ****  
 
-*Function GetMonth_v1(ByVal number As Integer, Optional ByVal longName As Boolean = False) As String*  
+*Function GetMonth_v1(ByVal number As Long, Optional ByVal longName As Boolean = False) As String*  
 
 *name*|*type*|*optional*|*default*|*description*
 ---|---|---|---|---
-ByVal|Integer|False||
+ByVal|Long|False||
 ByVal|Variant|True||
 
 
@@ -92,12 +92,12 @@ Return description: ****
 Scope: **Public**  
 Description: ****  
 
-*Function StringMult_v1(ByVal Word As String, ByVal Multiply As Integer) As String*  
+*Function StringMult_v1(ByVal Word As String, ByVal Multiply As Long) As String*  
 
 *name*|*type*|*optional*|*default*|*description*
 ---|---|---|---|---
 ByVal|String|False||
-ByVal|Integer|False||
+ByVal|Long|False||
 
 
 ---
@@ -108,16 +108,16 @@ Return description: ****
 Scope: **Public**  
 Description: ****  
 
-*Function addCellData_v1(ByVal mode As String, ByVal sheet As String, ByVal min As Integer, ByVal max As Integer, ByVal rawData As String, ByVal topLeft As Integer, ByVal forceLast As Boolean)*  
+*Function addCellData_v1(ByVal mode As String, ByVal sheet As String, ByVal min As Long, ByVal max As Long, ByVal rawData As String, ByVal topLeft As Long, ByVal forceLast As Boolean)*  
 
 *name*|*type*|*optional*|*default*|*description*
 ---|---|---|---|---
 ByVal|String|False||
 ByVal|String|False||
-ByVal|Integer|False||
-ByVal|Integer|False||
+ByVal|Long|False||
+ByVal|Long|False||
 ByVal|String|False||
-ByVal|Integer|False||
+ByVal|Long|False||
 ByVal|Boolean|False||
 
 
@@ -145,3 +145,18 @@ Description: ****
 *Sub ScanCommonError_v1()*  
 
 **no arguments required for this procedure**
+
+
+---
+VBA Procedure: **JoinDetailNames_v1**  
+Type: **Function**  
+Returns: **Variant**  
+Return description: ****  
+Scope: **Public**  
+Description: ****  
+
+*Function JoinDetailNames_v1() As String()*  
+
+*name*|*type*|*optional*|*default*|*description*
+---|---|---|---|---
+As|Variant|False||

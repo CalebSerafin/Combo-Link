@@ -2,7 +2,7 @@
 ## VBA Module: **[Attendance](/scripts/Attendance.vba "source is here")**
 ### Type: StdModule  
 
-This procedure list for repo (Combo-Link) was automatically created on 16/05/2018 20:28:47 by VBAGit.
+This procedure list for repo (Combo-Link) was automatically created on 31/07/2018 23:42:56 by VBAGit.
 For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation")
 
 Below is a section for each procedure in Attendance
@@ -21,44 +21,14 @@ Description: ****
 
 
 ---
-VBA Procedure: **testIntMax**  
-Type: **Function**  
-Returns: **Long**  
+VBA Procedure: **FormatColor**  
+Type: **Sub**  
+Returns: **void**  
 Return description: ****  
 Scope: **Public**  
 Description: ****  
 
-*Function testIntMax(ByVal InputInt As Long) As Long*  
-
-*name*|*type*|*optional*|*default*|*description*
----|---|---|---|---
-ByVal|Long|False||
-
-
----
-VBA Procedure: **testLongMax**  
-Type: **Function**  
-Returns: **Long**  
-Return description: ****  
-Scope: **Public**  
-Description: ****  
-
-*Function testLongMax(ByVal InputInt As Long) As Long*  
-
-*name*|*type*|*optional*|*default*|*description*
----|---|---|---|---
-ByVal|Long|False||
-
-
----
-VBA Procedure: **TestforZero**  
-Type: **Function**  
-Returns: **Variant**  
-Return description: ****  
-Scope: **Public**  
-Description: ****  
-
-*Function TestforZero()*  
+*Sub FormatColor()*  
 
 **no arguments required for this procedure**
 
@@ -99,7 +69,7 @@ Return description: ****
 Scope: **Public**  
 Description: ****  
 
-*Sub PositionAttendanceColomnButtons_v1(Optional ByVal colomn As Integer = 0)*  
+*Sub PositionAttendanceColomnButtons_v1(Optional ByVal colomn As Long = 0)*  
 
 *name*|*type*|*optional*|*default*|*description*
 ---|---|---|---|---

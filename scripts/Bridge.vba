@@ -7,7 +7,7 @@ Option Explicit
 '\\\Variables///'
 Public dataTableOld As String
 Public AttendanceSaving As Boolean
-Public maxMembers As Integer
+Public maxMembers As Long
 '//////  \\\\\\\'
 
 '\\\Debug Function///'
@@ -31,7 +31,7 @@ Public Sub Initialize()
     '///maxMembers
     dataTableOld = "nil"
     AttendanceSaving = False
-    maxMembers = Int(Worksheets("COMPUTING DON'T TOUCH").Cells(15, 6).Value)
+    maxMembers = CLng(Worksheets("COMPUTING DON'T TOUCH").Cells(15, 6).Value)
 
     Application.EnableEvents = False '===== Basically Refresh to get filter buttons to werk
     Call AttendanceData_load
@@ -48,15 +48,15 @@ End Sub
 
 '\\\Initializer Runtime Error Check///' 'Please call in your functions to allow checking
 Public Sub IREC()
-    If (maxMembers = 0 And maxMembers <> Int(Worksheets("COMPUTING DON'T TOUCH").Cells(15, 6).Value)) Or maxMembers = Null Then
+    If (maxMembers = 0 And maxMembers <> CLng(Worksheets("COMPUTING DON'T TOUCH").Cells(15, 6).Value)) Or maxMembers = Null Then
         Call Debug_msg("WARNING. IREC detected maxMembers value defect, reloading from cell value", "IREC")
-        maxMembers = Int(Worksheets("COMPUTING DON'T TOUCH").Cells(15, 6).Value)
+        maxMembers = CLng(Worksheets("COMPUTING DON'T TOUCH").Cells(15, 6).Value)
         
-        If (maxMembers = 0 And maxMembers <> Int(Worksheets("COMPUTING DON'T TOUCH").Cells(15, 6).Value)) Or maxMembers = Null Then
+        If (maxMembers = 0 And maxMembers <> CLng(Worksheets("COMPUTING DON'T TOUCH").Cells(15, 6).Value)) Or maxMembers = Null Then
              Call Debug_msg("WARNING. IREC detected maxMembers was unable to load from 'Worksheets(""COMPUTING DON'T TOUCH"").Cells(15, 6).Value', using defualt value of '64'.", "IREC")
              maxMembers = 64
              
-             If (maxMembers = 0 And maxMembers <> Int(Worksheets("COMPUTING DON'T TOUCH").Cells(15, 6).Value)) Or maxMembers = Null Then
+             If (maxMembers = 0 And maxMembers <> CLng(Worksheets("COMPUTING DON'T TOUCH").Cells(15, 6).Value)) Or maxMembers = Null Then
             Call Debug_msg("CRITICAL ERROR. IREC was unable to fix maxMembers recurring value defect. Please alert developer to check through the code for any functions modifing maxMembers.", "IREC")
             Call Debug_msg("CRITICAL ERROR. IREC set Application.EnableEvents to false and set AttendanceSaving to true to halt all macros.", "IREC")
             MsgBox "CRITICAL ERROR. IREC was unable to fix maxMembers recurring value defect. Please alert developer to check through the code for any functions modifing maxMembers.", vbCritical, "IREC"
@@ -69,10 +69,10 @@ Public Sub IREC()
 End Sub
 '////////////////// \\\\\\\\\\\\\\\\\\'
 '\\\Module1///'
-Public Function StringMult(ByVal Word As String, ByVal Multiply As Integer) As String
-    StringMult = StringMult_v1(Word, Int(Multiply))
+Public Function StringMult(ByVal Word As String, ByVal Multiply As Long) As String
+    StringMult = StringMult_v1(Word, CLng(Multiply))
 End Function
-Public Function addCellData(ByVal mode As String, ByVal sheet As String, ByVal min As Integer, ByVal max As Integer, ByVal rawData As String, ByVal topLeft As Integer, ByVal forceLast As Boolean)
+Public Function addCellData(ByVal mode As String, ByVal sheet As String, ByVal min As Long, ByVal max As Long, ByVal rawData As String, ByVal topLeft As Long, ByVal forceLast As Boolean)
     Call addCellData_v1(mode, sheet, min, max, rawData, topLeft, forceLast)
 End Function
 Public Sub AttendanceData_save()
@@ -90,10 +90,10 @@ Public Sub ScanCommonError()
     Call IREC
     Call ScanCommonError_v1
 End Sub
-Public Sub PositionAttendanceColomnButtons(Optional ByVal colomn As Integer = 0)
+Public Sub PositionAttendanceColomnButtons(Optional ByVal colomn As Long = 0)
     Call PositionAttendanceColomnButtons_v1(colomn)
 End Sub
-Public Function GetMonth(ByVal number As Integer) As String
+Public Function GetMonth(ByVal number As Long) As String
     GetMonth = GetMonth_v1(number)
 End Function
 Public Function FindMember(ByVal firstName As String, ByVal lastName As String, Optional ByVal matchCase As Boolean = True)
@@ -112,7 +112,10 @@ End Function
 Sub Calculations_On(ByVal lastCalcValue As Long)    'Take value from Calculations_Off function
     Calculations_On_v1 (lastCalcValue)
 End Sub
-Public Function CountMembers()
-    CountMembers = CountMembers_v1
+Public Function CountMembers() As Long
+    CountMembers = CountMembers_v2
+End Function
+Function JoinDetailNames() As String()
+    JoinDetailNames = JoinDetailNames_v1
 End Function
 '/////  \\\\\\'

@@ -9,12 +9,12 @@ Sub AttendanceData_save_v1() 'number version
     If Application.EnableEvents <> True Then
         Debug_msg ("Module1 Ln13: AttendanceData_save()")
         Debug_msg ("Module1 Ln14: Application.EnableEvents = " & Application.EnableEvents)
-        Dim Att_Row As Integer
+        Dim Att_Row As Long
         Att_Row = 3
-        Dim Att_Column As Integer
+        Dim Att_Column As Long
         Att_Column = 3
         
-        Dim Det_Row As Integer
+        Dim Det_Row As Long
         Det_Row = 2
         Dim Det_Column As Integer
         Det_Column = 8
@@ -211,3 +211,43 @@ Dim lastCalcValue As Long: lastCalcValue = Calculations_Off '#
 Call Calculations_On(lastCalcValue): lastCalcValue = 0 ''''''#
 '#############################################################
 End Sub
+
+Public Function CountMembers_v1() As Long
+    Dim CachedMembers As Long
+    Dim RowMin As Long
+    Dim BottomAddr As String
+    Dim initTest As Variant
+    CachedMembers = CLng(Worksheets("COMPUTING DON'T TOUCH").Range("J20").Value)
+    RowMin = CachedMembers + 3
+    BottomAddr = "B" & RowMin - 2 & ":B" & RowMin
+    initTest = Worksheets("Details").Range(BottomAddr)
+    
+    If Not ((initTest(1, 1) <> "" And initTest(2, 1) = "" And initTest(3, 1) = "")) Then
+'#############################################################
+Dim lastCalcValue As Long: lastCalcValue = Calculations_Off '#
+'Call Calculations_On(lastCalcValue):lastCalcValue = 0 ''''''#
+'#############################################################
+        Dim Row As Long
+        Dim WholeAddr As String
+        Dim FullRange As Range
+        
+        Row = 1
+        WholeAddr = "B2:B" & (RowMin + 1)
+        Set FullRange = Worksheets("Details").Range(WholeAddr)
+
+        Dim TempRng As Range
+        CachedMembers = CachedMembers + 4
+        For Each TempRng In FullRange
+            If TempRng.Value = "" Then
+                CachedMembers = TempRng.Row - 2
+                Exit For
+            End If
+        Next TempRng
+        Worksheets("COMPUTING DON'T TOUCH").Range("J20") = CachedMembers
+'#############################################################
+'Dim lastCalcValue As Long:lastCalcValue = Calculations_Off '#
+Call Calculations_On(lastCalcValue): lastCalcValue = 0 ''''''#
+'#############################################################
+    End If
+    CountMembers_v1 = CachedMembers
+End Function

@@ -57,25 +57,53 @@ Dim lastCalcValue As Long: lastCalcValue = Calculations_Off '#
 Call Calculations_On(lastCalcValue): lastCalcValue = 0 ''''''#
 '#############################################################
 End Sub
-Function testIntMax(ByVal InputInt As Long) As Long '[!]max is 32767
-    Dim MrInt As Integer
-    MrInt = InputInt
-    testIntMax = MrInt
-End Function
-Function testLongMax(ByVal InputInt As Long) As Long '[!]max is 2147483647
-    Dim MrLong As Long
-    MrLong = InputInt
-    testLongMax = MrLong
-End Function
-Function TestforZero()
-    Dim i As Integer
-    Dim out As Integer
-    out = 0
-    For i = 1 To 0
-        out = out + 1
+Sub FormatColor()
+    Dim UpperRow As Long
+    Dim UpperColumn As Long
+    
+    UpperRow = CountMembers + 2
+    UpperColumn = CLng(Worksheets("Attendance").Range("B1").Value) + 2
+    
+    'Found at:
+    'http://www.bluepecantraining.com/portfolio/excel-vba-macro-to-apply-conditional-formatting-based-on-value/
+    Dim rg As Range
+    With Worksheets("Attendance")
+        Set rg = .Range(.Cells(3, 3), .Cells(UpperRow, UpperColumn))
+    End With
+    Dim i As Long
+    Dim c As Long
+    Dim testcell As Range
+    c = rg.Cells.Count
+     
+    For i = 1 To c
+    Set testcell = rg(i)
+    Select Case testcell
+        Case Is = ""
+            With testcell
+                .Interior.ColorIndex = 0
+            End With
+        Case Is = " "
+            With testcell
+                .Interior.ColorIndex = 0
+                .Value = ""
+            End With
+        Case Is = "Y"
+            With testcell
+                .Interior.Color = RGB(112, 173, 71)
+            End With
+        Case Is = "N"
+            With testcell
+                .Interior.Color = RGB(237, 125, 49)
+            End With
+        Case Is = "?"
+            With testcell
+                .Interior.Color = RGB(255, 192, 0)
+             End With
+        End Select
     Next i
-    TestforZero = out
-End Function
+    
+    
+End Sub
 Sub UpdateAttendanceList_v2(Optional ByVal save As Boolean = True)
 '#############################################################
 Dim lastCalcValue As Long: lastCalcValue = Calculations_Off '#
@@ -143,32 +171,45 @@ Dim lastCalcValue As Long: lastCalcValue = Calculations_Off '#
     Dim Row As Long 'Internal row starting at 1 going to CountMembers
     Dim Column As Long 'Internal column starting at 1 going to PracticeNo
     Dim SummeryPercentRange As Variant 'Where we paste out data            '[!]max is IDK
+    Dim MemberListNames As Variant 'List of names to post to the Attendance sheet       '[!]max is IDK
     Dim PracticeNo As Long 'How many entries we are working with
     Dim AmountMembers As Long   'how many members there are
     Dim AttendanceCells As Variant 'Where we load our data                                  '[!]max is IDK
     Dim RowSum As Long 'Current sum for that row
     
-    ReDim SummeryPercentRange(1 To CountMembers, 1 To 1)
-    PracticeNo = CInt(Worksheets("Attendance").Cells(1, 2).Value)
-    AmountMembers = CountMembers
-    With Worksheets("Attendance")
-        AttendanceCells = .Range(.Cells(3, 3), .Cells(AmountMembers + 2, PracticeNo + 2))
-    End With
-    RowSum = 0
-
-    For Row = 1 To AmountMembers
-        RowSum = 0
-        For Column = 1 To PracticeNo
-            If AttendanceCells(Row, Column) = "Y" Then RowSum = RowSum + 1
-        Next Column
-        SummeryPercentRange(Row, 1) = CStr(RowSum / PracticeNo)
-    Next Row
+    AmountMembers = CountMembers 'a function
+    ReDim SummeryPercentRange(1 To AmountMembers, 1 To 1)
+    PracticeNo = CLng(Worksheets("Attendance").Cells(1, 2).Value)
     
+    Call FormatColor
+    
+    If PracticeNo > 0 Then 'Checks if the practice number includes actual day(s)and not zero.
+        With Worksheets("Attendance")
+            AttendanceCells = .Range(.Cells(3, 3), .Cells(AmountMembers + 2, PracticeNo + 2))
+        End With
+        RowSum = 0
+    
+        For Row = 1 To AmountMembers
+            RowSum = 0
+            For Column = 1 To PracticeNo
+                If AttendanceCells(Row, Column) = "Y" Then RowSum = RowSum + 1
+            Next Column
+            SummeryPercentRange(Row, 1) = CStr(Round(RowSum / PracticeNo, 5))
+        Next Row
+    Else    'if 0 (or somehow lower)
+        SummeryPercentRange = "1"
+    End If
+    
+    ReDim MemberListNames(1 To AmountMembers + 2, 1 To 1) As Variant
+    MemberListNames = Application.Transpose(JoinDetailNames)
+    
+    With Worksheets("Details")
+        'MemberListNames = .Range(.Cells(2, 2), .Cells(AmountMembers + 1, 2))
+        .Range(.Cells(2, 9), .Cells(AmountMembers + 1, 9)) = SummeryPercentRange
+    End With
     With Worksheets("Attendance")
         .Range(.Cells(3, 2), .Cells(AmountMembers + 2, 2)) = SummeryPercentRange
-    End With
-    With Worksheets("Details")
-        .Range(.Cells(2, 9), .Cells(AmountMembers + 1, 9)) = SummeryPercentRange
+        .Range(.Cells(3, 1), .Cells(AmountMembers + 2, 1)) = MemberListNames
     End With
     
     If save = True Then
@@ -196,41 +237,45 @@ Dim lastCalcValue As Long: lastCalcValue = Calculations_Off '#
     Dim CurrentSerialChar As String    'Data from individual string from AttendanceData
     Dim Serial As String    'Individual Data stored in ATTENDANCE DATA COLOMN in details
     Dim CurrentAttChar As String    'Data for individual char for AttendanceData
+    Dim CurrentAttColour As Long  'Colour for viewing
     
     PracticeNo = Worksheets("Attendance").Cells(1, 2).Value
     AmountMembers = CountMembers
     
-    Dim DetailsStorage As Variant   'Where the serialized data is from
-    Dim AttendanceData As Variant   'Range of cells from Attendance that represent the attendance marking
-    
-    With Worksheets("Details")
-        DetailsStorage = .Range(.Cells(2, 8), .Cells(AmountMembers + 1, 8))
-    End With
-    ReDim AttendanceData(1 To AmountMembers, 1 To PracticeNo)
-    
-    If Mid(CStr(DetailsStorage(1, 1)), 2, 1) <> "2" Then  'checking serial version
-        On Error GoTo IncompatibleVersion
-        Err.Raise 1, "AttendanceData_load_v3", ("AttendanceData_load_v3 is incompatible with Version " & Mid(CStr(DetailsStorage(1, 1)), 2, 1) & " serails. Please update your Combo-Link to the latest version!")
+    If PracticeNo > 0 Then 'Checks if Practice Number is more than 0
+        Dim DetailsStorage As Variant   'Where the serialized data is from
+        Dim AttendanceData As Variant   'Range of cells from Attendance that represent the attendance marking
+        
+        With Worksheets("Details")
+            DetailsStorage = .Range(.Cells(2, 8), .Cells(AmountMembers + 1, 8))
+        End With
+        ReDim AttendanceData(1 To AmountMembers, 1 To PracticeNo)
+        
+        If Mid(CStr(DetailsStorage(1, 1)), 2, 1) <> "2" Then  'checking serial version
+            On Error GoTo IncompatibleVersion
+            Err.Raise 1, "AttendanceData_load_v3", ("AttendanceData_load_v3 is incompatible with Version " & Mid(CStr(DetailsStorage(1, 1)), 2, 1) & " serails. Please update your Combo-Link to the latest version!")
+        End If
+        
+        
+        For Row = 1 To AmountMembers
+            Serial = Mid(CStr(DetailsStorage(Row, 1)), 4)
+            For Column = 1 To PracticeNo
+                CurrentSerialChar = Mid(Serial, Column, 1)
+                
+                CurrentAttChar = " " 'Default if no other values found.
+                If CurrentSerialChar = "1" Then CurrentAttChar = "Y"
+                If CurrentSerialChar = "2" Then CurrentAttChar = "N"
+                If CurrentSerialChar = "3" Then CurrentAttChar = "?"
+                
+                AttendanceData(Row, Column) = CurrentAttChar
+            Next Column
+        Next Row
+        
+        
+        With Worksheets("Attendance")
+            .Range(.Cells(3, 3), .Cells(AmountMembers + 2, PracticeNo + 2)).Value = AttendanceData
+        End With
     End If
-    
-    For Row = 1 To AmountMembers
-        Serial = Mid(CStr(DetailsStorage(Row, 1)), 4)
-        For Column = 1 To PracticeNo
-            CurrentSerialChar = Mid(Serial, Column, 1)
-            
-            CurrentAttChar = " " 'Default if no other values found.
-            If CurrentSerialChar = "1" Then CurrentAttChar = "Y"
-            If CurrentSerialChar = "2" Then CurrentAttChar = "N"
-            If CurrentSerialChar = "3" Then CurrentAttChar = "?"
-            
-            AttendanceData(Row, Column) = CurrentAttChar
-        Next Column
-    Next Row
-    
-    With Worksheets("Attendance")
-        .Range(.Cells(3, 3), .Cells(AmountMembers + 2, PracticeNo + 2)).Value = AttendanceData
-    End With
-
     
     Application.StatusBar = False
     Call UpdateAttendanceList(False)
@@ -243,7 +288,7 @@ IncompatibleVersion:
     Call Debug_msg(Err.source & ": " & Err.Description, "Incompatible", "Notify")
     Err.Clear
 End Sub
-Sub PositionAttendanceColomnButtons_v1(Optional ByVal colomn As Integer = 0)
+Sub PositionAttendanceColomnButtons_v1(Optional ByVal colomn As Long = 0)
     If colomn < 1 Then
         With Worksheets("Attendance")
             .addDate_Button.Left = .Cells(2, .Cells(1, 2).Value + 4).Left - 15

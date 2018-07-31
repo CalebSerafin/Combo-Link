@@ -1,9 +1,9 @@
 Option Explicit
-Private pTotalCellsAlloc As Integer ' Total number of cells to be used
-Private pBlockStartIndex As Integer 'Where the range of cells first addon-index is
-Private pHiddenCells As Integer 'How many cells used as hidden storage
-Private pDisplayCells As Integer 'How many cells used to display values?
-Private pInteractCells As Integer 'How many cells used for interaction?
+Private pTotalCellsAlloc As Long ' Total number of cells to be used
+Private pBlockStartIndex As Long 'Where the range of cells first addon-index is
+Private pHiddenCells As Long 'How many cells used as hidden storage
+Private pDisplayCells As Long 'How many cells used to display values?
+Private pInteractCells As Long 'How many cells used for interaction?
 
 Property Get HiddenCells() As String
      HiddenCells = pHiddenCells

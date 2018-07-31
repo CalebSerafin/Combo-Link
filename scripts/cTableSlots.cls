@@ -1,10 +1,10 @@
 Option Explicit
-Private pFields As Integer 'how many boxes in one slot
+Private pFields As Long 'how many boxes in one slot
 Private pDirection As String 'going in directions of right, left, down, up
-Private pTopBuffer As Integer 'how many columns inbetween it to side
-Private pSideBuffer As Integer 'how many row inbetween it to top
-Private pMaximium As Integer 'what is the maximium, use -1 for infinate
-Private pHeaderFields As Integer 'how many the tops used in calculations down columns
+Private pTopBuffer As Long 'how many columns inbetween it to side
+Private pSideBuffer As Long 'how many row inbetween it to top
+Private pMaximium As Long 'what is the maximium, use -1 for infinate
+Private pHeaderFields As Long 'how many the tops used in calculations down columns
 
 Property Get Fields() As String
      Fields = pFields

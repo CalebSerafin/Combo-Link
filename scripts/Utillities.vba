@@ -28,8 +28,11 @@ End Function
 '#############################################################
 Function Calculations_Off_v1() As Long   'Save return for Calculations_On function
     Dim lastCalcValue As Long
+    lastCalcValue = 1
     With Application
-        lastCalcValue = .Calculation
+        If (.EnableEvents = False Or .Calculation = xlCalculationManual) Then lastCalcValue = 0: 'Butchered to favour Enable Events as well as than calculate
+        
+        'lastCalcValue = .Calculation
         .ScreenUpdating = False
         .Calculation = xlCalculationManual
         .EnableEvents = False
@@ -39,17 +42,19 @@ End Function
 Sub Calculations_On_v1(ByVal lastCalcValue As Long)    'Take value from Calculations_Off function
     With Application
         .ScreenUpdating = True
-        .Calculation = lastCalcValue
+        .Calculation = xlCalculationAutomatic 'lastCalcValue
         .EnableEvents = True
+        
+        If lastCalcValue = 0 Then .EnableEvents = False: .Calculation = xlCalculationManual 'Butchered to favour Enable Events as well as than calculate
     End With
 End Sub
 
 Function IsInArray_v1(stringToBeFound As String, arr As Variant) As Boolean
   IsInArray_v1 = (UBound(Filter(arr, stringToBeFound)) > -1)
 End Function
-Function GetMonth_v1(ByVal number As Integer, Optional ByVal longName As Boolean = False) As String
+Function GetMonth_v1(ByVal number As Long, Optional ByVal longName As Boolean = False) As String
     If IsNumeric(number) Then
-        number = Int(number)
+        number = CLng(number)
         Dim monthList() As String
         If longName Then
             monthList() = Split("Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec", ",")
@@ -62,10 +67,10 @@ Function GetMonth_v1(ByVal number As Integer, Optional ByVal longName As Boolean
         GetMonth_v1 = "NAN"
     End If
 End Function
-Function StringMult_v1(ByVal Word As String, ByVal Multiply As Integer) As String
-    Dim repeat As Integer
+Function StringMult_v1(ByVal Word As String, ByVal Multiply As Long) As String
+    Dim repeat As Long
     StringMult_v1 = ""
-    Multiply = Int(Multiply)
+    Multiply = CLng(Multiply)
     
     If Multiply >= 1 Then
         For repeat = 1 To Multiply
@@ -73,7 +78,7 @@ Function StringMult_v1(ByVal Word As String, ByVal Multiply As Integer) As Strin
         Next repeat
     End If
 End Function
-Function addCellData_v1(ByVal mode As String, ByVal sheet As String, ByVal min As Integer, ByVal max As Integer, ByVal rawData As String, ByVal topLeft As Integer, ByVal forceLast As Boolean)
+Function addCellData_v1(ByVal mode As String, ByVal sheet As String, ByVal min As Long, ByVal max As Long, ByVal rawData As String, ByVal topLeft As Long, ByVal forceLast As Boolean)
 '#############################################################
 Dim lastCalcValue As Long: lastCalcValue = Calculations_Off '#
 'Call Calculations_On(lastCalcValue):lastCalcValue = 0 ''''''#
@@ -82,17 +87,17 @@ Dim lastCalcValue As Long: lastCalcValue = Calculations_Off '#
     
     If mode = "row" Or mode = "column" Then
         Dim data1D() As String
-        Dim data1DUBound As Integer
+        Dim data1DUBound As Long
         
         data1D = Split(rawData, "\'\")
         data1DUBound = UBound(data1D, 1)
     End If
     
     If mode = "row" Then
-        Dim index1D As Integer
-        Dim atColumn As Integer
+        Dim index1D As Long
+        Dim atColumn As Long
         Dim isFree As Boolean
-        Dim howLong As Integer
+        Dim howLong As Long
         If forceLast = True Then
             howLong = data1DUBound - 1
         Else
@@ -142,10 +147,10 @@ Sub ScanCommonError_v1() ' Requires v2 Load and Save functions
 '#############################################################
 Dim lastCalcValue As Long: lastCalcValue = Calculations_Off '#
 'Call Calculations_On(lastCalcValue):lastCalcValue = 0 ''''''#
-'##############################################################
+'#############################################################
     Application.StatusBar = "Refreshing...."
     
-    Dim Row As Integer
+    Dim Row As Long
     
     'row = 2
     'For row = 2 To 65 Step 1
@@ -161,8 +166,8 @@ Dim lastCalcValue As Long: lastCalcValue = Calculations_Off '#
         Next Row
     End If
     '///GapRemover
-    Dim index1D As Integer
-    Dim atColumn As Integer
+    Dim index1D As Long
+    Dim atColumn As Long
     Dim isFree As Boolean
     For index1D = 2 To maxMembers + 1
         isFree = True
@@ -172,19 +177,19 @@ Dim lastCalcValue As Long: lastCalcValue = Calculations_Off '#
                 Exit For
             End If
         Next atColumn
-        If isFree = True And Worksheets("Details").Cells(index1D, 8).Value = ("v2_" & StringMult("0", Int(Worksheets("Attendance").Range("B1").Value))) Then
+        If isFree = True And IsEmpty(Worksheets("Details").Cells(index1D, 8).Value) Then    '("v2_" & StringMult("0", CLng(Worksheets("Attendance").Range("B1").Value))) Then
             Debug_msg ("Module 1: ScanCommonError_v1: Terminating GapRemover at row: " & index1D)
             Exit For
         End If
         If isFree = True Then
             Debug_msg ("Module 1: ScanCommonError_v1: Found data without details at row: " & index1D)
-            Worksheets("Details").Cells(index1D, 8).Value = "v2_" & StringMult("0", Int(Worksheets("Attendance").Range("B1").Value)) '<---This is what requires v2 Load and Save functions (the v2_ part)
+            Worksheets("Details").Cells(index1D, 8).Value = ""  '"v2_" & StringMult("0", CLng(Worksheets("Attendance").Range("B1").Value)) '<---This is what requires v2 Load and Save functions (the v2_ part)
             Call AttendanceData_load
         End If
     Next index1D
     '///End GapRemover
     
-    If Worksheets("COMPUTING DON'T TOUCH").Cells(5, 12).Value = "Drama Club" Then
+    If Worksheets("COMPUTING DON'T TOUCH").Cells(5, 12).Value = "LostMemory" Then
         Dim found As Boolean
         found = False
         For Row = 2 To maxMembers + 1 + 1 And found = False Step 1
@@ -193,7 +198,7 @@ Dim lastCalcValue As Long: lastCalcValue = Calculations_Off '#
             End If
         Next Row
         If found <> True Then
-            Call addCellData("row", "Details", 2, maxMembers + 1 + 1, "Caleb\'\Serafin\'\10.5\'\Ex-Technical\'\Memoral of the lost Generation\'\076 318 9700\'\calebserafin@outlook.com\'\v2_" & StringMult("1", Int(Worksheets("Attendance").Range("B1").Value)), 1, True) '<---This is what requires v2 Load and Save functions (the v2_ part)
+            Call addCellData("row", "Details", 2, maxMembers + 1 + 1, "Caleb\'\Serafin\'\10.5\'\Ex-Technical\'\Memoral of the lost Generation\'\076 318 9700\'\calebserafin@outlook.com\'\v2_" & StringMult("1", CLng(Worksheets("Attendance").Range("B1").Value)), 1, True) '<---This is what requires v2 Load and Save functions (the v2_ part)
             Call AttendanceData_load
         End If
     End If
@@ -204,3 +209,25 @@ Dim lastCalcValue As Long: lastCalcValue = Calculations_Off '#
 Call Calculations_On(lastCalcValue): lastCalcValue = 0 ''''''#
 '#############################################################
 End Sub
+Function JoinDetailNames_v1() As String()
+    Dim AmountMembers As Long
+    Dim NamesBoth As Variant
+    Dim NamesJoint() As String
+    Dim CurrentMember As Long
+    
+    AmountMembers = CountMembers
+    
+    ReDim NamesBoth(1 To AmountMembers, 1 To 2) As Variant
+    ReDim NamesJoint(1 To AmountMembers) As String
+    ReDim JoinDetailNames_v1(1 To AmountMembers) As String
+    
+    With Worksheets("Details")
+        NamesBoth = .Range(.Cells(2, 1), .Cells(AmountMembers + 1, 2))
+    End With
+    
+    For CurrentMember = 1 To AmountMembers Step 1
+        NamesJoint(CurrentMember) = NamesBoth(CurrentMember, 1) & " " & NamesBoth(CurrentMember, 2)
+    Next CurrentMember
+    
+    JoinDetailNames_v1 = NamesJoint()
+End Function

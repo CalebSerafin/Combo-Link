@@ -1,20 +1,24 @@
 Option Explicit
-Public Function CountMembers_v1()
-    Dim CachedMembers As Integer
-    Dim RowMin As Integer
+Public Function CountMembers_v2() As Long
+    Dim CachedMembers As Long
+    Dim RowMin As Long
     Dim BottomAddr As String
-    Dim initTest As Range
-    CachedMembers = Int(Worksheets("COMPUTING DON'T TOUCH").Range("J20"))
+    Dim initTest As Variant
+    CachedMembers = CLng(Worksheets("COMPUTING DON'T TOUCH").Range("J20").Value)
     RowMin = CachedMembers + 3
     BottomAddr = "B" & RowMin - 2 & ":B" & RowMin
-    Set initTest = Worksheets("Details").Range(BottomAddr)
+    initTest = Worksheets("Details").Range(BottomAddr)
     
-    If Not ((initTest(1, 1) <> "" And initTest(2, 1) = "" And initTest(3, 1) = "")) Then
 '#############################################################
 Dim lastCalcValue As Long: lastCalcValue = Calculations_Off '#
 'Call Calculations_On(lastCalcValue):lastCalcValue = 0 ''''''#
 '#############################################################
-        Dim Row As Integer
+    Do Until ((initTest(2, 1) = "" And initTest(3, 1) = "")) 'initTest(1, 1) <> "" And
+        RowMin = CachedMembers + 3
+        BottomAddr = "B" & RowMin - 2 & ":B" & RowMin
+        initTest = Worksheets("Details").Range(BottomAddr)
+    
+        Dim Row As Long
         Dim WholeAddr As String
         Dim FullRange As Range
         
@@ -31,20 +35,21 @@ Dim lastCalcValue As Long: lastCalcValue = Calculations_Off '#
             End If
         Next TempRng
         Worksheets("COMPUTING DON'T TOUCH").Range("J20") = CachedMembers
+    Loop
 '#############################################################
 'Dim lastCalcValue As Long:lastCalcValue = Calculations_Off '#
 Call Calculations_On(lastCalcValue): lastCalcValue = 0 ''''''#
 '#############################################################
-    End If
-    CountMembers_v1 = CachedMembers
+    CountMembers_v2 = CachedMembers
 End Function
+
 Function FindMember_v1(ByVal firstName As String, ByVal lastName As String, Optional ByVal matchCase As Boolean = True) 'returns row of member. returns 0 if nor found
     FindMember_v1 = 0
     
     Dim notWorking As String
     notWorking = True
     Dim fullName As String
-    Dim Row As Integer
+    Dim Row As Long
     Dim checkName As String
     
     fullName = (firstName & lastName)

@@ -2,20 +2,20 @@
 ## VBA Module: **[Details](/scripts/Details.vba "source is here")**
 ### Type: StdModule  
 
-This procedure list for repo (Combo-Link) was automatically created on 16/05/2018 20:28:47 by VBAGit.
+This procedure list for repo (Combo-Link) was automatically created on 31/07/2018 23:42:56 by VBAGit.
 For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation")
 
 Below is a section for each procedure in Details
 
 ---
-VBA Procedure: **CountMembers_v1**  
+VBA Procedure: **CountMembers_v2**  
 Type: **Function**  
-Returns: **Variant**  
+Returns: **Long**  
 Return description: ****  
 Scope: **Public**  
 Description: ****  
 
-*Public Function CountMembers_v1()*  
+*Public Function CountMembers_v2() As Long*  
 
 **no arguments required for this procedure**
 
