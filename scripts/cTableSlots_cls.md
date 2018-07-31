@@ -2,7 +2,7 @@
 ## VBA Module: **[cTableSlots](/scripts/cTableSlots.cls "source is here")**
 ### Type: ClassModule  
 
-This procedure list for repo (Combo-Link) was automatically created on 31/07/2018 23:42:56 by VBAGit.
+This procedure list for repo (Combo-Link) was automatically created on 01/08/2018 00:03:52 by VBAGit.
 For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation")
 
 Below is a section for each procedure in cTableSlots
